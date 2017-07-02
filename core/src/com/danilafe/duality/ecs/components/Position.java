@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Pool;
 
 public class Position implements Component, Pool.Poolable {
 
-    public Vector2 position;
+    public Vector2 position = new Vector2();
 
     @Override
     public void reset() {
