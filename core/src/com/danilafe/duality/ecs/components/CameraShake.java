@@ -18,6 +18,12 @@ public class CameraShake implements Component, Pool.Poolable {
     public Vector2 movingTowards = new Vector2();
     public Vector2 movingFrom = new Vector2();
 
+    public void shake(float intensity, float shakeDelay){
+        shakeLength = intensity;
+        currentDelay = moveDelay = shakeDelay;
+        movingTowards.set(shakeDelay, 0).rotate((float) (Math.random() * 360));
+    }
+
     @Override
     public void reset() {
         shakeLength = 0;
