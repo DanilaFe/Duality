@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -12,6 +13,8 @@ import com.danilafe.duality.ecs.components.Animated;
 import com.danilafe.duality.ecs.components.Position;
 
 public class RenderSystem extends IteratingSystem {
+
+    public OrthographicCamera activeCamera;
 
     private SpriteBatch mainBatch;
     private SpriteBatch textureBatch;
@@ -60,6 +63,9 @@ public class RenderSystem extends IteratingSystem {
 
     @Override
     public void update(float deltaTime) {
+        if(activeCamera != null){
+            mainBatch.setProjectionMatrix(activeCamera.combined);
+        }
         activate(mainBatch);
         {
             Gdx.gl.glClearColor(1, 1, 1, 1);
