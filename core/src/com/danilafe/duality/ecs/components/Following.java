@@ -7,9 +7,6 @@ import com.badlogic.gdx.utils.Pool;
 
 import java.util.function.Function;
 
-/**
- * Created by vanilla on 7/2/17.
- */
 public class Following implements Component, Pool.Poolable {
 
     public static final Function<Float, Float> CURVE =

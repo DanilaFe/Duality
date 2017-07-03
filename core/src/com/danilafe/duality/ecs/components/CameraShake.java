@@ -4,9 +4,6 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 
-/**
- * Created by vanilla on 7/2/17.
- */
 public class CameraShake implements Component, Pool.Poolable {
 
     public float shakeLength;
