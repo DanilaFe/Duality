@@ -12,6 +12,8 @@ import com.danilafe.duality.ecs.components.Position;
  */
 public class FollowingSystem extends IteratingSystem {
 
+    static final int POSITION_DEPENDENCE = 128;
+
     public FollowingSystem(){
         super(Family.all(Following.class, Position.class).get());
     }
@@ -26,7 +28,7 @@ public class FollowingSystem extends IteratingSystem {
 
         Vector2 displacement = new Vector2(otherPosition.position).sub(pos.position);
         float distance = displacement.len();
-        float maxSpeed = fol.maxMove * Following.CURVE.apply(distance) * deltaTime;
+        float maxSpeed = fol.maxMove * Following.CURVE.apply(distance / POSITION_DEPENDENCE) * deltaTime;
         float actualMove = (distance < maxSpeed) ? distance : maxSpeed;
 
         displacement.setLength(actualMove);
