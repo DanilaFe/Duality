@@ -29,7 +29,7 @@ public class AnimationData {
     }
 
     public TextureRegion getFrame(int index){
-        return textureRegions[index / textureRegions.length][index % textureRegions.length];
+        return textureRegions[index / textureRegions[0].length][index % textureRegions[0].length];
     }
 
 }
