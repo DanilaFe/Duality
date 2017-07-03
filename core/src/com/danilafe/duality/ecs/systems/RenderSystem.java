@@ -17,6 +17,8 @@ import com.danilafe.duality.ecs.components.Position;
 
 public class RenderSystem extends IteratingSystem {
 
+    static final float TRANSITION_DURATION = .5f;
+
     public OrthographicCamera activeCamera;
     public Texture backgroundTexture;
 
@@ -25,6 +27,9 @@ public class RenderSystem extends IteratingSystem {
     private SpriteBatch activeBatch;
 
     private ShaderProgram shaderProgram;
+
+    float transition = 0;
+    public boolean increasing = false;
 
     public RenderSystem(){
         super(Family.all(Animated.class, Position.class).get());
@@ -74,6 +79,14 @@ public class RenderSystem extends IteratingSystem {
 
     @Override
     public void update(float deltaTime) {
+        if(increasing && transition < 1){
+            transition += deltaTime / TRANSITION_DURATION;
+            if(transition > 1) transition = 1;
+        } else if(!increasing && transition > 0){
+            transition -= deltaTime / TRANSITION_DURATION;
+            if(transition < 0) transition = 0;
+        }
+
         FrameBuffer gameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
         gameBuffer.begin();
         activate(textureBatch);
@@ -106,6 +119,7 @@ public class RenderSystem extends IteratingSystem {
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
             activeBatch.getShader().setUniformi("u_background", 1);
+            activeBatch.getShader().setUniformf("u_transition", transition);
             activeBatch.draw(gameBuffer.getColorBufferTexture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
         }
         deactivate();
