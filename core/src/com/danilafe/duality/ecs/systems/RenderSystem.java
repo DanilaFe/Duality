@@ -123,5 +123,8 @@ public class RenderSystem extends IteratingSystem {
             activeBatch.draw(gameBuffer.getColorBufferTexture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
         }
         deactivate();
+
+        backgroundBuffer.dispose();
+        gameBuffer.dispose();
     }
 }
