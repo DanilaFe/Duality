@@ -22,14 +22,17 @@ public class FollowingSystem extends IteratingSystem {
 
         if(fol.otherEntity == null) return;
         Position otherPosition = fol.otherEntity.getComponent(Position.class);
+        if(fol.immediate){
+            pos.position.set(otherPosition.position);
+        } else {
+            Vector2 displacement = new Vector2(otherPosition.position).sub(pos.position);
+            float distance = displacement.len();
+            float maxSpeed = fol.maxMove * Following.CURVE.apply(distance / POSITION_DEPENDENCE) * deltaTime;
+            float actualMove = (distance < maxSpeed) ? distance : maxSpeed;
 
-        Vector2 displacement = new Vector2(otherPosition.position).sub(pos.position);
-        float distance = displacement.len();
-        float maxSpeed = fol.maxMove * Following.CURVE.apply(distance / POSITION_DEPENDENCE) * deltaTime;
-        float actualMove = (distance < maxSpeed) ? distance : maxSpeed;
-
-        displacement.setLength(actualMove);
-        pos.position.add(displacement);
+            displacement.setLength(actualMove);
+            pos.position.add(displacement);
+        }
     }
 
 }
