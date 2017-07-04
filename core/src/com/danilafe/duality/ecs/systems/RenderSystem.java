@@ -69,7 +69,9 @@ public class RenderSystem extends IteratingSystem {
 
         if(activeBatch == null) return;
         TextureRegion toRender = anm.animationData.getFrame(anm.currentFrames.get(anm.currentFrame));
-        activeBatch.draw(toRender, pos.position.x - toRender.getRegionWidth() / 2, pos.position.y - toRender.getRegionHeight() / 2);
+        activeBatch.setColor(anm.tint);
+        activeBatch
+                .draw(toRender, pos.position.x - toRender.getRegionWidth() / 2, pos.position.y - toRender.getRegionHeight() / 2, toRender.getRegionWidth() / 2, toRender.getRegionHeight() / 2, toRender.getRegionWidth(), toRender.getRegionHeight(), anm.flipHorizontal ? -1 : 1, anm.flipVertical ? -1 : 1, 0);
     }
 
     @Override
