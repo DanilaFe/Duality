@@ -26,18 +26,13 @@ public class RenderSystem extends IteratingSystem {
     private SpriteBatch textureBatch;
     private SpriteBatch activeBatch;
 
-    private ShaderProgram shaderProgram;
+    public ShaderProgram shaderProgram;
 
-    float transition = 0;
+    private float transition = 0;
     public boolean increasing = false;
 
     public RenderSystem(){
         super(Family.all(Animated.class, Position.class).get());
-        ShaderProgram.pedantic = false;
-        shaderProgram = new ShaderProgram(Gdx.files.internal("vertex.glsl").readString(), Gdx.files.internal("fragment.glsl").readString());
-        if(!shaderProgram.isCompiled()){
-            System.err.println(shaderProgram.getLog());
-        }
 
         mainBatch = new SpriteBatch();
         mainBatch.setShader(shaderProgram);
@@ -118,8 +113,9 @@ public class RenderSystem extends IteratingSystem {
             Gdx.gl.glClearColor(1, 1, 1, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
-            activeBatch.getShader().setUniformi("u_background", 1);
-            activeBatch.getShader().setUniformf("u_transition", transition);
+            shaderProgram.setUniformi("u_background", 1);
+            shaderProgram.setUniformf("u_transition", transition);
+            activeBatch.setShader(shaderProgram);
             activeBatch.draw(gameBuffer.getColorBufferTexture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
         }
         deactivate();
