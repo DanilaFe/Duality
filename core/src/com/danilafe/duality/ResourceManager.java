@@ -56,6 +56,7 @@ public class ResourceManager {
             for(String subAnimation : anim.animations.keys()){
                 Integer[] copyFrom = anim.animations.get(subAnimation);
                 int[] copyInto = new int[copyFrom.length];
+                for(int i = 0; i < copyFrom.length; i++) copyInto[i] = copyFrom[i];
                 data.registerAnimation(subAnimation, copyInto);
             }
             animations.put(animation, data);
