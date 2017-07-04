@@ -7,9 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.danilafe.duality.ecs.components.Following;
 import com.danilafe.duality.ecs.components.Position;
 
-/**
- * Created by vanilla on 7/2/17.
- */
 public class FollowingSystem extends IteratingSystem {
 
     static final int POSITION_DEPENDENCE = 128;

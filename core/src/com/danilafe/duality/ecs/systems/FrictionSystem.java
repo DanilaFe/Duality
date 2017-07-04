@@ -8,9 +8,6 @@ import com.danilafe.duality.ecs.components.FrictionEntity;
 import com.danilafe.duality.ecs.components.Velocity;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
 
-/**
- * Created by vanilla on 7/3/17.
- */
 public class FrictionSystem extends DualSystem {
 
     public FrictionSystem() {

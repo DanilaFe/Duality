@@ -8,9 +8,6 @@ import com.danilafe.duality.ecs.components.Camera;
 import com.danilafe.duality.ecs.components.CameraShake;
 import com.danilafe.duality.ecs.components.Position;
 
-/**
- * Created by vanilla on 7/2/17.
- */
 public class CameraSystem extends IteratingSystem {
 
     public CameraSystem(){
