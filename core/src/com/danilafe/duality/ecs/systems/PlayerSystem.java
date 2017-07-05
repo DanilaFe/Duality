@@ -9,7 +9,11 @@ import com.danilafe.duality.ecs.components.*;
 public class PlayerSystem extends IteratingSystem {
 
     static final float PLAYER_ACCELERATION = 256;
-    static final float PLAYER_VELOCITY_LIMT = 64;
+    static final float PLAYER_VELOCITY_LIMIT = 96;
+    static final float PLAYER_VELOCITY_JUMP = 172;
+
+    static final float PLAYER_FRICTION_STANDING = 1;
+    static final float PLAYER_FRICTION_MOVING = .25f;
 
     public PlayerSystem(){
         super(Family.all(Player.class, Acceleration.class, Velocity.class, FrictionEntity.class, Animated.class).get());
@@ -23,13 +27,13 @@ public class PlayerSystem extends IteratingSystem {
         FrictionEntity frictionEntity = entity.getComponent(FrictionEntity.class);
         Animated animated = entity.getComponent(Animated.class);
 
-        if(velocity.velocity.x > PLAYER_VELOCITY_LIMT) velocity.velocity.x = PLAYER_VELOCITY_LIMT;
-        else if(velocity.velocity.x < -PLAYER_VELOCITY_LIMT) velocity.velocity.x = -PLAYER_VELOCITY_LIMT;
+        if(velocity.velocity.x > PLAYER_VELOCITY_LIMIT) velocity.velocity.x = PLAYER_VELOCITY_LIMIT;
+        else if(velocity.velocity.x < -PLAYER_VELOCITY_LIMIT) velocity.velocity.x = -PLAYER_VELOCITY_LIMIT;
         animated.flipHorizontal = velocity.velocity.x > 0;
 
         if(!player.active) {
             acceleration.acceleration.x = 0;
-            frictionEntity.reduceAmount = 1;
+            frictionEntity.reduceAmount = PLAYER_FRICTION_STANDING;
             return;
         }
 
@@ -37,9 +41,9 @@ public class PlayerSystem extends IteratingSystem {
         if(Gdx.input.isKeyPressed(player.leftKey)) xAccel -= PLAYER_ACCELERATION;
         if(Gdx.input.isKeyPressed(player.rightKey)) xAccel += PLAYER_ACCELERATION;
         acceleration.acceleration.x = xAccel;
-        frictionEntity.reduceAmount = (xAccel == 0 || Math.signum(xAccel) != Math.signum(velocity.velocity.x)) ? 1 : .25f;
+        frictionEntity.reduceAmount = (xAccel == 0 || Math.signum(xAccel) != Math.signum(velocity.velocity.x)) ? PLAYER_FRICTION_STANDING : PLAYER_FRICTION_MOVING;
 
-        if(Gdx.input.isKeyJustPressed(player.jumpKey)) velocity.velocity.y = 128;
+        if(Gdx.input.isKeyJustPressed(player.jumpKey)) velocity.velocity.y = PLAYER_VELOCITY_JUMP;
     }
 
 }
