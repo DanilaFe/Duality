@@ -30,7 +30,7 @@ public class SurfaceSystem extends DualSystem {
             if(trackerComponent.lastSurface != null) {
                 trackerComponent.onSurface = isOnSurface(trackerBox.box, trackerComponent.lastSurface.getComponent(CollisionBox.class).box);
                 if(!trackerComponent.onSurface) trackerComponent.lastSurface = null;
-                else return;
+                else continue;
             }
 
             for(Entity surfaceEntity : entitiesA){
