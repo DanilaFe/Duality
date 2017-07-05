@@ -16,7 +16,7 @@ public class PlayerSystem extends IteratingSystem {
     static final float PLAYER_FRICTION_MOVING = .25f;
 
     public PlayerSystem(){
-        super(Family.all(Player.class, Acceleration.class, Velocity.class, FrictionEntity.class, Animated.class).get());
+        super(Family.all(Player.class, Acceleration.class, Velocity.class, FrictionEntity.class, Animated.class, SurfaceTracker.class).get());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class PlayerSystem extends IteratingSystem {
         acceleration.acceleration.x = xAccel;
         frictionEntity.reduceAmount = (xAccel == 0 || Math.signum(xAccel) != Math.signum(velocity.velocity.x)) ? PLAYER_FRICTION_STANDING : PLAYER_FRICTION_MOVING;
 
-        if(Gdx.input.isKeyJustPressed(player.jumpKey)) velocity.velocity.y = PLAYER_VELOCITY_JUMP;
+        if(Gdx.input.isKeyJustPressed(player.jumpKey) && entity.getComponent(SurfaceTracker.class).onSurface) velocity.velocity.y = PLAYER_VELOCITY_JUMP;
     }
 
 }

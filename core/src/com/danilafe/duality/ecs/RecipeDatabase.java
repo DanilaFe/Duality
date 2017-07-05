@@ -29,6 +29,7 @@ public class RecipeDatabase {
                 acceleration.acceleration.y = -512;
                 entity.add(animated);
                 entity.add(acceleration);
+                entity.add(engine.createComponent(SurfaceTracker.class));
                 entity.add(engine.createComponent(Player.class));
                 entity.add(engine.createComponent(Velocity.class));
                 entity.add(engine.createComponent(FrictionEntity.class));
