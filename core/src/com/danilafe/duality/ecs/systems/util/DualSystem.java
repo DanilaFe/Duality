@@ -13,7 +13,7 @@ public class DualSystem extends EntitySystem {
     public ImmutableArray<Entity> entitiesA;
     public ImmutableArray<Entity> entitiesB;
 
-    public DualSystem(Family a, Family b){
+    public DualSystem(Family a, Family b) {
         familyA = a;
         familyB = b;
     }

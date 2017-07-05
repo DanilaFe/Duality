@@ -16,7 +16,8 @@ public abstract class Recipe {
         position.position.set(x, y);
         return position;
     }
-    protected CollisionBox createCollisionBox(PooledEngine engine, float x, float y, float width, float height){
+
+    protected CollisionBox createCollisionBox(PooledEngine engine, float x, float y, float width, float height) {
         CollisionBox collisionBox = engine.createComponent(CollisionBox.class);
         collisionBox.box.setSize(width, height);
         collisionBox.box.setCenter(x, y);

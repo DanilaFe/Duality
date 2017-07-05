@@ -11,7 +11,7 @@ public class FollowingSystem extends IteratingSystem {
 
     static final int POSITION_DEPENDENCE = 128;
 
-    public FollowingSystem(){
+    public FollowingSystem() {
         super(Family.all(Following.class, Position.class).get());
     }
 
@@ -20,9 +20,9 @@ public class FollowingSystem extends IteratingSystem {
         Position pos = entity.getComponent(Position.class);
         Following fol = entity.getComponent(Following.class);
 
-        if(fol.otherEntity == null) return;
+        if (fol.otherEntity == null) return;
         Position otherPosition = fol.otherEntity.getComponent(Position.class);
-        if(fol.immediate){
+        if (fol.immediate) {
             pos.position.set(otherPosition.position);
         } else {
             Vector2 displacement = new Vector2(otherPosition.position).sub(pos.position);

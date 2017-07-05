@@ -31,7 +31,7 @@ public class RenderSystem extends IteratingSystem {
     private float transition = 0;
     public boolean increasing = false;
 
-    public RenderSystem(){
+    public RenderSystem() {
         super(Family.all(Animated.class, Position.class).get());
 
         mainBatch = new SpriteBatch();
@@ -42,13 +42,13 @@ public class RenderSystem extends IteratingSystem {
         activeBatch = null;
     }
 
-    private void activate(SpriteBatch batch){
+    private void activate(SpriteBatch batch) {
         activeBatch = batch;
         activeBatch.getProjectionMatrix().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         activeBatch.begin();
     }
 
-    private void deactivate(){
+    private void deactivate() {
         activeBatch.end();
         activeBatch = null;
     }
@@ -59,15 +59,15 @@ public class RenderSystem extends IteratingSystem {
         Position pos = entity.getComponent(Position.class);
 
         anm.currentDelay -= deltaTime;
-        while(anm.currentDelay <= 0 && anm.frameDelay != 0){
+        while (anm.currentDelay <= 0 && anm.frameDelay != 0) {
             anm.currentDelay += anm.frameDelay;
             anm.currentFrame++;
-            if(anm.currentFrame >= anm.currentFrames.size()){
+            if (anm.currentFrame >= anm.currentFrames.size()) {
                 anm.currentFrame = anm.loop ? 0 : anm.currentFrame - 1;
             }
         }
 
-        if(activeBatch == null) return;
+        if (activeBatch == null) return;
         TextureRegion toRender = anm.animationData.getFrame(anm.currentFrames.get(anm.currentFrame));
         activeBatch.setColor(anm.tint);
         activeBatch
@@ -76,21 +76,21 @@ public class RenderSystem extends IteratingSystem {
 
     @Override
     public void update(float deltaTime) {
-        if(increasing && transition < 1){
+        if (increasing && transition < 1) {
             transition += deltaTime / TRANSITION_DURATION;
-            if(transition > 1) transition = 1;
-        } else if(!increasing && transition > 0){
+            if (transition > 1) transition = 1;
+        } else if (!increasing && transition > 0) {
             transition -= deltaTime / TRANSITION_DURATION;
-            if(transition < 0) transition = 0;
+            if (transition < 0) transition = 0;
         }
 
         FrameBuffer gameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
         gameBuffer.begin();
         activate(textureBatch);
         {
-            Gdx.gl.glClearColor(0,0, 0, 0);
+            Gdx.gl.glClearColor(0, 0, 0, 0);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            if(activeCamera != null)
+            if (activeCamera != null)
                 activeBatch.setProjectionMatrix(activeCamera.combined);
             super.update(deltaTime);
         }
@@ -103,7 +103,7 @@ public class RenderSystem extends IteratingSystem {
         {
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            if(backgroundTexture != null)
+            if (backgroundTexture != null)
                 textureBatch.draw(backgroundTexture, 0, 0);
         }
         deactivate();

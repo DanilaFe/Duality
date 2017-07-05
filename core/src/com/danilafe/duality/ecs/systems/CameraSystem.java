@@ -10,7 +10,7 @@ import com.danilafe.duality.ecs.components.Position;
 
 public class CameraSystem extends IteratingSystem {
 
-    public CameraSystem(){
+    public CameraSystem() {
         super(Family.all(Camera.class, Position.class).get());
     }
 
@@ -21,9 +21,9 @@ public class CameraSystem extends IteratingSystem {
         CameraShake csh = entity.getComponent(CameraShake.class);
 
         Vector2 newPosition = new Vector2(pos.position).add(cam.offset);
-        if(csh != null){
+        if (csh != null) {
             csh.currentDelay -= deltaTime;
-            while(csh.currentDelay <= 0 && csh.moveDelay != 0 && csh.shakeLength > csh.threshold){
+            while (csh.currentDelay <= 0 && csh.moveDelay != 0 && csh.shakeLength > csh.threshold) {
                 csh.currentDelay += csh.moveDelay;
                 csh.shakeLength *= csh.damping;
                 csh.currentOffset.set(csh.movingTowards);
@@ -31,7 +31,7 @@ public class CameraSystem extends IteratingSystem {
                 csh.movingTowards.setLength(csh.shakeLength);
                 csh.movingTowards.rotate((float) (135 + Math.random() * 90));
             }
-            if(csh.moveDelay != 0 && csh.shakeLength > csh.threshold){
+            if (csh.moveDelay != 0 && csh.shakeLength > csh.threshold) {
                 Vector2 progress = new Vector2(csh.movingTowards).sub(csh.movingFrom).scl(1.f - csh.currentDelay / csh.moveDelay);
                 csh.currentOffset.set(csh.movingFrom).add(progress);
             } else {

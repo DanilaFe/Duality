@@ -11,7 +11,7 @@ public class RecipeDatabase {
 
     private ObjectMap<String, Recipe> recipies;
 
-    public RecipeDatabase(){
+    public RecipeDatabase() {
         recipies = new ObjectMap<>();
         loadDefault();
     }
@@ -76,7 +76,7 @@ public class RecipeDatabase {
         });
     }
 
-    public Recipe getRecipe(String name){
+    public Recipe getRecipe(String name) {
         return recipies.get(name);
     }
 

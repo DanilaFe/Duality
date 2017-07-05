@@ -19,7 +19,7 @@ public class Animated implements Component, Pool.Poolable {
     public boolean flipHorizontal;
     public Color tint = new Color(Color.WHITE);
 
-    public void play(String name, boolean doLoop){
+    public void play(String name, boolean doLoop) {
         currentFrames = animationData.getAnimation(name);
         currentAnimation = name;
         currentFrame = 0;

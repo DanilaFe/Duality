@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Pool;
 
 public class CollisionBox implements Component, Pool.Poolable {
 
-    public Rectangle box = new Rectangle(0, 0, 0 , 0);
+    public Rectangle box = new Rectangle(0, 0, 0, 0);
 
     @Override
     public void reset() {

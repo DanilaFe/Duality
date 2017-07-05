@@ -21,22 +21,23 @@ public class PlayerSystem extends IteratingSystem {
     public IntIntMap keysToId;
     public IntMap<Boolean> idTransitions;
 
-    public PlayerSystem(){
+    public PlayerSystem() {
         super(Family.all(Player.class, Acceleration.class, Velocity.class, FrictionEntity.class, Animated.class, SurfaceTracker.class).get());
         keysToId = new IntIntMap();
         idTransitions = new IntMap<>();
     }
 
-    public void registerPlayer(int id, int key, boolean transiton){
+    public void registerPlayer(int id, int key, boolean transiton) {
         keysToId.put(key, id);
         idTransitions.put(id, transiton);
     }
-    public void switchPlayer(int id){
+
+    public void switchPlayer(int id) {
         Entity newPlayer = null;
-        for(Entity playerEntity : getEntities()){
+        for (Entity playerEntity : getEntities()) {
             Player player = playerEntity.getComponent(Player.class);
             player.active = player.switchId == id;
-            if(player.active) newPlayer = playerEntity;
+            if (player.active) newPlayer = playerEntity;
         }
         Engine engine = getEngine();
         engine.getEntitiesFor(Family.all(Following.class, Camera.class).get())
@@ -52,29 +53,30 @@ public class PlayerSystem extends IteratingSystem {
         FrictionEntity frictionEntity = entity.getComponent(FrictionEntity.class);
         Animated animated = entity.getComponent(Animated.class);
 
-        if(velocity.velocity.x > PLAYER_VELOCITY_LIMIT) velocity.velocity.x = PLAYER_VELOCITY_LIMIT;
-        else if(velocity.velocity.x < -PLAYER_VELOCITY_LIMIT) velocity.velocity.x = -PLAYER_VELOCITY_LIMIT;
+        if (velocity.velocity.x > PLAYER_VELOCITY_LIMIT) velocity.velocity.x = PLAYER_VELOCITY_LIMIT;
+        else if (velocity.velocity.x < -PLAYER_VELOCITY_LIMIT) velocity.velocity.x = -PLAYER_VELOCITY_LIMIT;
         animated.flipHorizontal = velocity.velocity.x > 0;
 
-        if(!player.active) {
+        if (!player.active) {
             acceleration.acceleration.x = 0;
             frictionEntity.reduceAmount = PLAYER_FRICTION_STANDING;
             return;
         }
 
         float xAccel = 0;
-        if(Gdx.input.isKeyPressed(player.leftKey)) xAccel -= PLAYER_ACCELERATION;
-        if(Gdx.input.isKeyPressed(player.rightKey)) xAccel += PLAYER_ACCELERATION;
+        if (Gdx.input.isKeyPressed(player.leftKey)) xAccel -= PLAYER_ACCELERATION;
+        if (Gdx.input.isKeyPressed(player.rightKey)) xAccel += PLAYER_ACCELERATION;
         acceleration.acceleration.x = xAccel;
         frictionEntity.reduceAmount = (xAccel == 0 || Math.signum(xAccel) != Math.signum(velocity.velocity.x)) ? PLAYER_FRICTION_STANDING : PLAYER_FRICTION_MOVING;
 
-        if(Gdx.input.isKeyJustPressed(player.jumpKey) && entity.getComponent(SurfaceTracker.class).onSurface) velocity.velocity.y = PLAYER_VELOCITY_JUMP;
+        if (Gdx.input.isKeyJustPressed(player.jumpKey) && entity.getComponent(SurfaceTracker.class).onSurface)
+            velocity.velocity.y = PLAYER_VELOCITY_JUMP;
     }
 
     @Override
     public void update(float deltaTime) {
-        for(IntIntMap.Entry entry : keysToId.entries()){
-            if(Gdx.input.isKeyPressed(entry.key)) switchPlayer(entry.value);
+        for (IntIntMap.Entry entry : keysToId.entries()) {
+            if (Gdx.input.isKeyPressed(entry.key)) switchPlayer(entry.value);
         }
 
         super.update(deltaTime);

@@ -10,7 +10,7 @@ import com.danilafe.duality.ecs.components.Velocity;
 
 public class PhysicsSystem extends IteratingSystem {
 
-    public PhysicsSystem(){
+    public PhysicsSystem() {
         super(Family.all(Velocity.class).one(Acceleration.class, Position.class).get());
     }
 
@@ -19,7 +19,7 @@ public class PhysicsSystem extends IteratingSystem {
         Position pos = entity.getComponent(Position.class);
         Acceleration acc = entity.getComponent(Acceleration.class);
         Velocity vel = entity.getComponent(Velocity.class);
-        if(acc != null) vel.velocity.add(new Vector2(acc.acceleration).scl(deltaTime));
-        if(pos != null) pos.position.add(new Vector2(vel.velocity).scl(deltaTime));
+        if (acc != null) vel.velocity.add(new Vector2(acc.acceleration).scl(deltaTime));
+        if (pos != null) pos.position.add(new Vector2(vel.velocity).scl(deltaTime));
     }
 }

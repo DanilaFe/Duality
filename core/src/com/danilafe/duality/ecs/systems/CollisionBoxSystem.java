@@ -8,7 +8,7 @@ import com.danilafe.duality.ecs.components.Position;
 
 public class CollisionBoxSystem extends IteratingSystem {
 
-    public CollisionBoxSystem(){
+    public CollisionBoxSystem() {
         super(Family.all(CollisionBox.class, Position.class).get());
     }
 
