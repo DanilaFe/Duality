@@ -21,6 +21,7 @@ public class FrictionSystem extends DualSystem {
         for(Entity frictionEntity : entitiesB){
             CollisionBox box = frictionEntity.getComponent(CollisionBox.class);
             Velocity vel = frictionEntity.getComponent(Velocity.class);
+            float reduce = (float) Math.pow(frictionEntity.getComponent(FrictionEntity.class).reduceAmount, deltaTime);
 
             for(Entity causeEntity : entitiesA){
                 CollisionBox otherBox = causeEntity.getComponent(CollisionBox.class);
@@ -30,6 +31,7 @@ public class FrictionSystem extends DualSystem {
                         && box.box.y == otherBox.box.y + otherBox.box.height){
                     float friction = (float) Math.pow(cause.frictionAmount, deltaTime);
                     vel.velocity.x *= friction;
+                    vel.velocity.x /= reduce;
                 }
             }
         }
