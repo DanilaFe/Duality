@@ -3,7 +3,6 @@ package com.danilafe.duality.ecs.components;
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.utils.Pool;
 
 public class Player implements Component, Pool.Poolable {

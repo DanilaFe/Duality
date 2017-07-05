@@ -2,7 +2,6 @@ package com.danilafe.duality.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Rectangle;
 import com.danilafe.duality.ecs.components.CollisionBox;
 import com.danilafe.duality.ecs.components.Solid;
