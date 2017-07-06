@@ -32,7 +32,7 @@ public class PlayerSystem extends IteratingSystem {
         idTransitions.put(id, transiton);
     }
 
-    public void switchPlayer(int id) {
+    public void switchGroup(int id) {
         Entity newPlayer = null;
         for (Entity playerEntity : getEntities()) {
             Player player = playerEntity.getComponent(Player.class);
@@ -76,7 +76,7 @@ public class PlayerSystem extends IteratingSystem {
     @Override
     public void update(float deltaTime) {
         for (IntIntMap.Entry entry : keysToId.entries()) {
-            if (Gdx.input.isKeyPressed(entry.key)) switchPlayer(entry.value);
+            if (Gdx.input.isKeyPressed(entry.key)) switchGroup(entry.value);
         }
 
         super.update(deltaTime);

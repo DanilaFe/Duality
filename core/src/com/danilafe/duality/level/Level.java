@@ -81,14 +81,15 @@ public class Level {
                         .create(engine, resources, spawn.x * TILE_SIZE + chunk.offset.x, spawn.y * TILE_SIZE + chunk.offset.y);
                 Player player = playerEntity.getComponent(Player.class);
                 player.switchId = spawn.switchId;
-                player.active = levelData.groups.get(Integer.toString(spawn.switchId)).active;
-                if(spawn.cameraFocus) following.otherEntity = playerEntity;
                 engine.addEntity(playerEntity);
             }
             PlayerSystem playerSystem = engine.getSystem(PlayerSystem.class);
             playerSystem.idTransitions.clear();
             for(String key : levelData.groups.keys()){
-                playerSystem.idTransitions.put(Integer.parseInt(key), levelData.groups.get(key).transition);
+                int groupId = Integer.parseInt(key);
+                LevelData.SwitchGroup group = levelData.groups.get(key);
+                playerSystem.idTransitions.put(groupId, group.transition);
+                if(group.active) playerSystem.switchGroup(groupId);
             }
         }
     }

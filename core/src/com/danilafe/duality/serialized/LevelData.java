@@ -32,7 +32,6 @@ public class LevelData {
         public String entityName = "player";
         public int x = 0;
         public int y = 0;
-        public boolean cameraFocus = false;
         public int switchId = 0;
     }
 
