@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.level.Level;
 
 public class RecipeDatabase {
 
@@ -53,7 +54,7 @@ public class RecipeDatabase {
                 entity.add(frictionCause);
                 entity.add(engine.createComponent(Solid.class));
                 entity.add(createPosition(engine, x, y));
-                entity.add(createCollisionBox(engine, x, y, 8, 8));
+                entity.add(createCollisionBox(engine, x, y, 16, 16));
                 return entity;
             }
         });

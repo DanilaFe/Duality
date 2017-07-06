@@ -3,6 +3,7 @@
     "background.png",
     "badlogic.jpg",
     "cavetiles.png",
+    "worldtiles.png",
     "slime_green_move_left.png",
     "stars.jpg"
   ],
@@ -33,13 +34,25 @@
       }
     },
     "tiles": {
-      "rawTexture": "cavetiles.png",
+      "rawTexture": "worldtiles.png",
       "dimensions": [
-        8, 8
+        16, 16
       ],
       "animations": {
         "default": [
           0
+        ],
+        "topCorner": [
+          1
+        ],
+        "top": [
+          1
+        ],
+        "bottomCorner": [
+          2
+        ],
+        "bottom": [
+          2
         ]
       }
     }
