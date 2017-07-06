@@ -4,10 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -18,6 +15,7 @@ import com.danilafe.duality.ecs.components.Position;
 public class RenderSystem extends IteratingSystem {
 
     static final float TRANSITION_DURATION = .5f;
+    static final Color CLEAR_COLOR = new Color(Color.BLACK);
 
     public OrthographicCamera activeCamera;
     public Texture backgroundTexture;
@@ -117,6 +115,12 @@ public class RenderSystem extends IteratingSystem {
             Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
             shaderProgram.setUniformi("u_background", 1);
             shaderProgram.setUniformf("u_transition", transition);
+            shaderProgram.setUniform4fv("u_clearColor", new float[]{
+                    CLEAR_COLOR.r,
+                    CLEAR_COLOR.g,
+                    CLEAR_COLOR.b,
+                    CLEAR_COLOR.a
+            }, 0, 4);
             activeBatch.setShader(shaderProgram);
             activeBatch.draw(gameBuffer.getColorBufferTexture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
         }
