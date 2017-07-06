@@ -1,6 +1,5 @@
 package com.danilafe.duality.ecs.systems;
 
-import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
@@ -41,8 +40,12 @@ public class PlayerSystem extends IteratingSystem {
 
         for (Entity playerEntity : getEntities()) {
             Player player = playerEntity.getComponent(Player.class);
+            if (player.switchId == id) cameraPlayers.add(playerEntity);
+        }
+        if(cameraPlayers.size == 0) return;
+        for(Entity playerEntity : getEntities()){
+            Player player = playerEntity.getComponent(Player.class);
             player.active = player.switchId == id;
-            if (player.active) cameraPlayers.add(playerEntity);
         }
 
         Entity toFollow = null;
@@ -55,7 +58,7 @@ public class PlayerSystem extends IteratingSystem {
                toFollow = averageEntities.first();
                averageComponent = toFollow.getComponent(Average.class);
             } else {
-                toFollow= engine.createEntity();
+                toFollow = engine.createEntity();
                 averageComponent =  engine.createComponent(Average.class);
                 toFollow.add(averageComponent);
                 toFollow.add(engine.createComponent(Position.class));
