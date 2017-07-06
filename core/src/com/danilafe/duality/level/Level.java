@@ -26,9 +26,7 @@ public class Level {
     }
 
     public void create(PooledEngine engine, ResourceManager resources, RecipeDatabase recipes){
-        Entity camera = recipes.getRecipe("camera").create(engine, resources, 0, 0);
-        Following following = camera.getComponent(Following.class);
-        engine.addEntity(camera);
+        engine.addEntity(recipes.getRecipe("camera").create(engine, resources, 0, 0));
 
         for(LevelData.Chunk chunk : levelData.chunks){
             int maxX = 0;
