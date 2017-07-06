@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Json;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.RecipeDatabase;
 import com.danilafe.duality.ecs.components.Animated;
-import com.danilafe.duality.ecs.components.Following;
 import com.danilafe.duality.ecs.components.Player;
 import com.danilafe.duality.ecs.systems.PlayerSystem;
 import com.danilafe.duality.serialized.LevelData;

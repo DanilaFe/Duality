@@ -7,7 +7,7 @@ import com.badlogic.gdx.utils.Pool;
 
 public class Parent implements Component, Pool.Poolable {
 
-    public Array<Entity> children = new Array<Entity>();
+    public Array<Entity> children = new Array<>();
 
     @Override
     public void reset() {

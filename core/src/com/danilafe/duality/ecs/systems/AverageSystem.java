@@ -3,10 +3,8 @@ package com.danilafe.duality.ecs.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.math.Vector2;
 import com.danilafe.duality.ecs.components.Average;
 import com.danilafe.duality.ecs.components.Position;
-import javafx.geometry.Pos;
 
 public class AverageSystem extends IteratingSystem {
 
