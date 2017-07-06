@@ -34,7 +34,7 @@
       }
     },
     "tiles": {
-      "rawTexture": "worldtiles.png",
+      "rawTexture": "world_tiles.png",
       "dimensions": [
         16, 16
       ],
