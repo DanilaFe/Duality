@@ -23,11 +23,26 @@ public class LevelData {
     }
 
     public static class Chunk {
+        public PlayerSpawn[] players = new PlayerSpawn[0];
         public Coordinate[] tiles = new Coordinate[0];
         public Vector2 offset = new Vector2();
     }
 
+    public static class PlayerSpawn {
+        public String entityName = "player";
+        public int x = 0;
+        public int y = 0;
+        public boolean cameraFocus = false;
+        public int switchId = 0;
+    }
+
+    public static class SwitchGroup {
+        public boolean transition = false;
+        public boolean active = false;
+    }
+
     public ObjectMap<String, Tile> tileDefinitions = new ObjectMap<>();
+    public ObjectMap<String, SwitchGroup> groups = new ObjectMap<>();
     public Chunk[] chunks = new Chunk[0];
 
 }

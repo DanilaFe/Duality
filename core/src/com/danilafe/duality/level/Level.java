@@ -7,6 +7,9 @@ import com.badlogic.gdx.utils.Json;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.RecipeDatabase;
 import com.danilafe.duality.ecs.components.Animated;
+import com.danilafe.duality.ecs.components.Following;
+import com.danilafe.duality.ecs.components.Player;
+import com.danilafe.duality.ecs.systems.PlayerSystem;
 import com.danilafe.duality.serialized.LevelData;
 
 public class Level {
@@ -23,6 +26,10 @@ public class Level {
     }
 
     public void create(PooledEngine engine, ResourceManager resources, RecipeDatabase recipes){
+        Entity camera = recipes.getRecipe("camera").create(engine, resources, 0, 0);
+        Following following = camera.getComponent(Following.class);
+        engine.addEntity(camera);
+
         for(LevelData.Chunk chunk : levelData.chunks){
             int maxX = 0;
             int maxY = 0;
@@ -38,7 +45,7 @@ public class Level {
 
             for(int x = 0; x <= maxX; x++){
                 for(int y = 0; y <= maxY; y++){
-                    if(generated[x][y] == null) continue;;
+                    if(generated[x][y] == null) continue;
 
                     Entity newEntity = recipes.getRecipe(generated[x][y].entityName).create(engine, resources,
                             x * TILE_SIZE + chunk.offset.x, y * TILE_SIZE + chunk.offset.y);
@@ -67,6 +74,21 @@ public class Level {
 
                     engine.addEntity(newEntity);
                 }
+            }
+
+            for(LevelData.PlayerSpawn spawn : chunk.players){
+                Entity playerEntity = recipes.getRecipe(spawn.entityName)
+                        .create(engine, resources, spawn.x * TILE_SIZE + chunk.offset.x, spawn.y * TILE_SIZE + chunk.offset.y);
+                Player player = playerEntity.getComponent(Player.class);
+                player.switchId = spawn.switchId;
+                player.active = levelData.groups.get(Integer.toString(spawn.switchId)).active;
+                if(spawn.cameraFocus) following.otherEntity = playerEntity;
+                engine.addEntity(playerEntity);
+            }
+            PlayerSystem playerSystem = engine.getSystem(PlayerSystem.class);
+            playerSystem.idTransitions.clear();
+            for(String key : levelData.groups.keys()){
+                playerSystem.idTransitions.put(Integer.parseInt(key), levelData.groups.get(key).transition);
             }
         }
     }
