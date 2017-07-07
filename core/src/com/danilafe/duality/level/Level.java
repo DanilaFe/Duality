@@ -31,13 +31,13 @@ public class Level {
             int maxX = 0;
             int maxY = 0;
             for(LevelData.Coordinate coord : chunk.tiles){
-                if(coord.x > maxX) maxX = coord.x;
-                if(coord.y > maxY) maxY = coord.y;
+                if(coord.coords[0] > maxX) maxX = coord.coords[0];
+                if(coord.coords[1] > maxY) maxY = coord.coords[1];
             }
 
             LevelData.Tile[][] generated = new LevelData.Tile[maxX + 1][maxY + 1];
             for(LevelData.Coordinate coord : chunk.tiles){
-                generated[coord.x][coord.y] = levelData.tileDefinitions.get(coord.tile);
+                generated[coord.coords[0]][coord.coords[1]] = levelData.tileDefinitions.get(coord.tile);
             }
 
             for(int x = 0; x <= maxX; x++){
@@ -75,7 +75,7 @@ public class Level {
 
             for(LevelData.PlayerSpawn spawn : chunk.players){
                 Entity playerEntity = recipes.getRecipe(spawn.entityName)
-                        .create(engine, resources, spawn.x * TILE_SIZE + chunk.offset.x, spawn.y * TILE_SIZE + chunk.offset.y);
+                        .create(engine, resources, spawn.coords[0] * TILE_SIZE + chunk.offset.x, spawn.coords[1] * TILE_SIZE + chunk.offset.y);
                 Player player = playerEntity.getComponent(Player.class);
                 player.switchId = spawn.switchId;
                 engine.addEntity(playerEntity);

@@ -17,8 +17,7 @@ public class LevelData {
     }
 
     public static class Coordinate {
-        public int x = 0;
-        public int y = 0;
+        public int[] coords = new int[2];
         public String tile = "wall";
     }
 
@@ -30,8 +29,7 @@ public class LevelData {
 
     public static class PlayerSpawn {
         public String entityName = "player";
-        public int x = 0;
-        public int y = 0;
+        public int[] coords = new int[2];
         public int switchId = 0;
     }
 
