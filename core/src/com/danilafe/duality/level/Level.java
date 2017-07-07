@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.danilafe.duality.ResourceManager;
+import com.danilafe.duality.ecs.EntityUtils;
 import com.danilafe.duality.ecs.RecipeDatabase;
 import com.danilafe.duality.ecs.components.Animated;
 import com.danilafe.duality.ecs.components.Player;
@@ -87,6 +88,14 @@ public class Level {
                 LevelData.SwitchGroup group = levelData.groups.get(key);
                 playerSystem.idTransitions.put(groupId, group.transition);
                 if(group.active) playerSystem.switchGroup(groupId);
+            }
+
+            for(LevelData.DecorativeEntity entity : chunk.decorations){
+                Entity createdEntity =
+                        EntityUtils.createDecorativeEntity(engine, resources, entity.resourceName, entity.animationName,
+                                entity.loop,
+                                entity.coords[0] * TILE_SIZE + chunk.offset.x, entity.coords[1] * TILE_SIZE + chunk.offset.y - TILE_SIZE / 2);
+                engine.addEntity(createdEntity);
             }
         }
     }

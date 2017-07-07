@@ -23,8 +23,16 @@ public class LevelData {
 
     public static class Chunk {
         public PlayerSpawn[] players = new PlayerSpawn[0];
+        public DecorativeEntity[] decorations = new DecorativeEntity[0];
         public Coordinate[] tiles = new Coordinate[0];
         public Vector2 offset = new Vector2();
+    }
+
+    public static class DecorativeEntity {
+        public String resourceName = "wall";
+        public String animationName = "default";
+        public int[] coords = new int[2];
+        public boolean loop = true;
     }
 
     public static class PlayerSpawn {
