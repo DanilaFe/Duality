@@ -4,6 +4,9 @@
     "debug/slime_green_move_left.png",
     "monochrome/world_tiles.png",
     "monochrome/decor_small.png",
+    "monochrome/pillar_cracked.png",
+    "monochrome/pillar_full.png",
+    "monochrome/tree_air.png",
     "monochrome/tree_ground.png"
   ],
   "shaders": [
@@ -48,6 +51,81 @@
         ],
         "bottom": [
           2
+        ]
+      }
+    },
+    "tree_air": {
+      "rawTexture": "monochrome/tree_air.png",
+      "dimensions": [
+        48,
+        64
+      ],
+      "animations": {
+        "default": [
+          0
+        ]
+      }
+    },
+    "tree_ground": {
+      "rawTexture": "monochrome/tree_ground.png",
+      "dimensions": [
+        48,
+        48
+      ],
+      "animations": {
+        "default": [
+          0
+        ]
+      }
+    },
+    "decor_small": {
+      "rawTexture": "monochrome/decor_small.png",
+      "dimensions": [
+        16,
+        16
+      ],
+      "animations": {
+        "default": [
+          0
+        ],
+        "boulder": [
+          0
+        ],
+        "vase": [
+          1
+        ],
+        "grass": [
+          2
+        ],
+        "stones": [
+          3
+        ],
+        "sword": [
+          4
+        ]
+      }
+    },
+    "pillar_cracked": {
+      "rawTexture": "monochrome/pillar_cracked.png",
+      "dimensions": [
+        16,
+        32
+      ],
+      "animations": {
+        "default": [
+          0
+        ]
+      }
+    },
+    "pillar_full": {
+      "rawTexture": "monochrome/pillar_full.png",
+      "dimensions": [
+        16,
+        32
+      ],
+      "animations": {
+        "default": [
+          0
         ]
       }
     }
