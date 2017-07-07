@@ -1,42 +1,37 @@
 {
   "rawTextures": [
-    "background.png",
-    "badlogic.jpg",
-    "cavetiles.png",
-    "world_tiles.png",
-    "slime_green_move_left.png",
-    "stars.jpg"
+    "backgrounds/stars.jpg",
+    "debug/slime_green_move_left.png",
+    "monochrome/world_tiles.png",
+    "monochrome/decor_small.png",
+    "monochrome/tree_ground.png"
   ],
   "shaders": [
     "default"
   ],
   "animations": {
-    "debug": {
-      "rawTexture": "badlogic.jpg",
-      "dimensions" : [
-        16, 16
-      ],
-      "animations": {
-        "default": [
-          0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
-        ]
-      }
-    },
     "slime": {
-      "rawTexture": "slime_green_move_left.png",
+      "rawTexture": "debug/slime_green_move_left.png",
       "dimensions": [
-        16, 8
+        16,
+        8
       ],
       "animations": {
         "default": [
-          0, 1, 2, 3, 4, 5
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
         ]
       }
     },
     "tiles": {
-      "rawTexture": "world_tiles.png",
+      "rawTexture": "monochrome/world_tiles.png",
       "dimensions": [
-        16, 16
+        16,
+        16
       ],
       "animations": {
         "default": [
@@ -58,6 +53,6 @@
     }
   },
   "textures": {
-    "background": "stars.jpg"
+    "background": "backgrounds/stars.jpg"
   }
 }
