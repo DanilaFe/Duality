@@ -7,9 +7,6 @@ import com.badlogic.gdx.utils.Pool;
 
 public class Player implements Component, Pool.Poolable {
 
-    public boolean active;
-    public int switchId = 0;
-
     public int leftKey = Input.Keys.LEFT;
     public int rightKey = Input.Keys.RIGHT;
     public int jumpKey = Input.Keys.SPACE;
@@ -17,9 +14,6 @@ public class Player implements Component, Pool.Poolable {
 
     @Override
     public void reset() {
-        active = false;
-        switchId = 0;
-
         leftKey = Input.Keys.LEFT;
         rightKey = Input.Keys.RIGHT;
         jumpKey = Input.Keys.SPACE;

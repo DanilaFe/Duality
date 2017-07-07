@@ -7,8 +7,10 @@ import com.badlogic.gdx.utils.Json;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.EntityUtils;
 import com.danilafe.duality.ecs.RecipeDatabase;
+import com.danilafe.duality.ecs.components.ActiveGroup;
 import com.danilafe.duality.ecs.components.Animated;
 import com.danilafe.duality.ecs.components.Player;
+import com.danilafe.duality.ecs.systems.ActiveGroupSystem;
 import com.danilafe.duality.ecs.systems.PlayerSystem;
 import com.danilafe.duality.serialized.LevelData;
 
@@ -77,17 +79,17 @@ public class Level {
             for(LevelData.PlayerSpawn spawn : chunk.players){
                 Entity playerEntity = recipes.getRecipe(spawn.entityName)
                         .create(engine, resources, spawn.coords[0] * TILE_SIZE + chunk.offset.x, spawn.coords[1] * TILE_SIZE + chunk.offset.y);
-                Player player = playerEntity.getComponent(Player.class);
-                player.switchId = spawn.switchId;
+                ActiveGroup group = playerEntity.getComponent(ActiveGroup.class);
+                group.switchId = spawn.switchId;
                 engine.addEntity(playerEntity);
             }
-            PlayerSystem playerSystem = engine.getSystem(PlayerSystem.class);
-            playerSystem.idTransitions.clear();
+            ActiveGroupSystem activeGroupSystem = engine.getSystem(ActiveGroupSystem.class);
+            activeGroupSystem.idTransitions.clear();
             for(String key : levelData.groups.keys()){
                 int groupId = Integer.parseInt(key);
                 LevelData.SwitchGroup group = levelData.groups.get(key);
-                playerSystem.idTransitions.put(groupId, group.transition);
-                if(group.active) playerSystem.switchGroup(groupId);
+                activeGroupSystem.idTransitions.put(groupId, group.transition);
+                if(group.active) activeGroupSystem.switchGroup(groupId);
             }
 
             for(LevelData.DecorativeEntity entity : chunk.decorations){
