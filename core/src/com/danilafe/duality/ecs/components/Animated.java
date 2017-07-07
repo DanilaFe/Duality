@@ -20,10 +20,12 @@ public class Animated implements Component, Pool.Poolable {
     public Color tint = new Color(Color.WHITE);
 
     public void play(String name, boolean doLoop) {
-        currentFrames = animationData.getAnimation(name);
-        currentAnimation = name;
-        currentFrame = 0;
-        currentDelay = frameDelay;
+        if(currentAnimation == null || !currentAnimation.equals(name)){
+            currentFrames = animationData.getAnimation(name);
+            currentAnimation = name;
+            currentFrame = 0;
+            currentDelay = frameDelay;
+        }
         loop = doLoop;
     }
 
@@ -31,7 +33,7 @@ public class Animated implements Component, Pool.Poolable {
     public void reset() {
         animationData = null;
         currentFrames = null;
-        currentAnimation = "";
+        currentAnimation = null;
         currentFrame = 0;
         frameDelay = 0;
         currentDelay = 0;
