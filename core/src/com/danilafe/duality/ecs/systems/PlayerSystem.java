@@ -1,5 +1,6 @@
 package com.danilafe.duality.ecs.systems;
 
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.badlogic.gdx.utils.IntMap;
+import com.badlogic.gdx.utils.Pool;
 import com.danilafe.duality.ecs.components.*;
 
 public class PlayerSystem extends IteratingSystem {
@@ -34,6 +36,17 @@ public class PlayerSystem extends IteratingSystem {
         idTransitions.put(id, transiton);
     }
 
+    private Entity getPositioningEntity(PooledEngine engine){
+        ImmutableArray<Entity> averageEntities = engine.getEntitiesFor(Family.all(Average.class, Position.class).get());
+        if(averageEntities.size() > 0) return averageEntities.first();
+
+        Entity newEntity = engine.createEntity();
+        newEntity.add(engine.createComponent(Average.class));
+        newEntity.add(engine.createComponent(Position.class));
+        engine.addEntity(newEntity);
+        return newEntity;
+    }
+
     public void switchGroup(int id) {
         PooledEngine engine = (PooledEngine) getEngine();
         Array<Entity> cameraPlayers = new Array<>();
@@ -52,24 +65,13 @@ public class PlayerSystem extends IteratingSystem {
         if(cameraPlayers.size == 1){
             toFollow = cameraPlayers.first();
         } else if(cameraPlayers.size > 1) {
-            Average averageComponent;
-            ImmutableArray<Entity> averageEntities = engine.getEntitiesFor(Family.all(Average.class).get());
-            if(averageEntities.size() > 0){
-               toFollow = averageEntities.first();
-               averageComponent = toFollow.getComponent(Average.class);
-            } else {
-                toFollow = engine.createEntity();
-                averageComponent =  engine.createComponent(Average.class);
-                toFollow.add(averageComponent);
-                toFollow.add(engine.createComponent(Position.class));
-                engine.addEntity(toFollow);
-            }
+            Average averageComponent = (toFollow = getPositioningEntity(engine)).getComponent(Average.class);
             averageComponent.entities.clear();
             averageComponent.entities.addAll(cameraPlayers);
         }
+
         engine.getEntitiesFor(Family.all(Following.class, Camera.class).get())
                     .first().getComponent(Following.class).otherEntity = toFollow;
-
         engine.getSystem(RenderSystem.class).increasing = idTransitions.get(id);
     }
 
