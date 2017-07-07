@@ -13,7 +13,7 @@ import javafx.geometry.Pos;
 
 public class EntityUtils {
 
-    public static Entity createDecorativeEntity(PooledEngine engine, ResourceManager resourceManager, RecipeDatabase database,
+    public static Entity createDecorativeEntity(PooledEngine engine, ResourceManager resourceManager,
                                          String resourceName, String animationName,
                                          boolean loop, float x, float y){
         Entity entity = engine.createEntity();
