@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.ecs.components.Runnable;
 import com.danilafe.duality.level.Level;
 
 public class RecipeDatabase {
@@ -73,6 +74,34 @@ public class RecipeDatabase {
                 entity.add(following);
                 entity.add(cameraShake);
                 entity.add(createPosition(engine, x, y));
+                return entity;
+            }
+        });
+        recipies.put("rain", new Recipe() {
+            @Override
+            public Entity create(PooledEngine engine, ResourceManager resources, float x, float y) {
+                Entity entity = engine.createEntity();
+                Animated animated = engine.createComponent(Animated.class);
+                animated.animationData = resources.getAnimation("rain_drop");
+                animated.frameDelay = 1.f / 128;
+                animated.play("default", true);
+                Runnable runnable = engine.createComponent(Runnable.class);
+                runnable.runnable = (givenEngine, givenEntity, dt) -> {
+                  if(givenEntity.getComponent(Velocity.class).velocity.y == 0)
+                      givenEntity.getComponent(Animated.class).play("drop", false);
+                };
+                Velocity velocity = engine.createComponent(Velocity.class);
+                velocity.velocity.set(0, -256);
+                Expiring expiring = engine.createComponent(Expiring.class);
+                expiring.expireTime = 5;
+                entity.add(animated);
+                entity.add(runnable);
+                entity.add(velocity);
+                entity.add(expiring);
+                entity.add(engine.createComponent(Colliding.class));
+                entity.add(engine.createComponent(SurfaceTracker.class));
+                entity.add(createPosition(engine, x, y));
+                entity.add(createCollisionBox(engine, x, y, 8, 8));
                 return entity;
             }
         });
