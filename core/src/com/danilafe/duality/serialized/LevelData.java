@@ -5,6 +5,10 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public class LevelData {
 
+    private static class Positioned {
+        public int[] coords = new int[2];
+    }
+
     public static class Tile {
         public String entityName = "wall";
 
@@ -16,8 +20,7 @@ public class LevelData {
         public String bottomFrame = "default";
     }
 
-    public static class Coordinate {
-        public int[] coords = new int[2];
+    public static class Coordinate extends Positioned{
         public String tile = "wall";
     }
 
@@ -30,28 +33,24 @@ public class LevelData {
         public Vector2 offset = new Vector2();
     }
 
-    public static class DecorativeEntity {
+    public static class DecorativeEntity extends Positioned {
         public String resourceName = "wall";
         public String animationName = "default";
-        public int[] coords = new int[2];
         public boolean loop = true;
     }
 
-    public static class PlayerSpawn {
+    public static class PlayerSpawn extends Positioned {
         public String entityName = "player";
-        public int[] coords = new int[2];
         public int switchId = 0;
     }
 
-    public static class GeneralEntity {
+    public static class GeneralEntity extends Positioned {
         public String entityName = "";
-        public int[] coords = new int[2];
     }
 
-    public static class LevelPortal {
+    public static class LevelPortal extends Positioned {
         public String loadType = "internal";
         public String levelName = "";
-        public int[] coords = new int[2];
     }
 
     public static class SwitchGroup {
