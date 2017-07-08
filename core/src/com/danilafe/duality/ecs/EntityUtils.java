@@ -40,6 +40,9 @@ public class EntityUtils {
            Following following = e.getComponent(Following.class);
            if(following.otherEntity == toDelete) following.otherEntity = null;
         });
+        engine.getEntitiesFor(Family.all(OverlapTracker.class).get()).forEach(e -> {
+            e.getComponent(OverlapTracker.class).entities.removeValue(toDelete, false);
+        });
         engine.getEntitiesFor(Family.all(Parent.class).get()).forEach(e -> {
             Parent parent = e.getComponent(Parent.class);
             parent.children.removeValue(toDelete, false);
