@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Json;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.EntityUtils;
@@ -29,6 +30,18 @@ public class Level {
         return new Level(Gdx.files.internal("levels/" + name + ".json").readString());
     }
 
+    private float chunkCoord(int position, float offset){
+        return position * TILE_SIZE + offset;
+    }
+
+    private float chunkX(int position, LevelData.Chunk chunk){
+        return chunkCoord(position, chunk.offset.x);
+    }
+
+    private float chunkY(int position, LevelData.Chunk chunk){
+        return chunkCoord(position, chunk.offset.y);
+    }
+
     public void create(PooledEngine engine, ResourceManager resources, RecipeDatabase recipes){
         engine.addEntity(recipes.getRecipe("camera").create(engine, resources, 0, 0));
         engine.getEntitiesFor(Family.all(Camera.class).get()).first().getComponent(Camera.class).camera
@@ -52,7 +65,7 @@ public class Level {
                     if(generated[x][y] == null) continue;
 
                     Entity newEntity = recipes.getRecipe(generated[x][y].entityName).create(engine, resources,
-                            x * TILE_SIZE + chunk.offset.x, y * TILE_SIZE + chunk.offset.y);
+                            chunkX(x, chunk), chunkY(y, chunk));
                     boolean hasLeft = (x > 0 && generated[x - 1][y] != null);
                     boolean hasRight = (x < generated.length - 1 && generated[x + 1][y] != null);
                     boolean hasBottom = (y > 0 && generated[x][y - 1] != null);
@@ -82,7 +95,7 @@ public class Level {
 
             for(LevelData.PlayerSpawn spawn : chunk.players){
                 Entity playerEntity = recipes.getRecipe(spawn.entityName)
-                        .create(engine, resources, spawn.coords[0] * TILE_SIZE + chunk.offset.x, spawn.coords[1] * TILE_SIZE + chunk.offset.y);
+                        .create(engine, resources, chunkX(spawn.coords[0], chunk), chunkY(spawn.coords[1], chunk));
                 ActiveGroup group = playerEntity.getComponent(ActiveGroup.class);
                 group.switchId = spawn.switchId;
                 engine.addEntity(playerEntity);
@@ -100,19 +113,19 @@ public class Level {
                 Entity createdEntity =
                         EntityUtils.createDecorativeEntity(engine, resources, entity.resourceName, entity.animationName,
                                 entity.loop,
-                                entity.coords[0] * TILE_SIZE + chunk.offset.x, entity.coords[1] * TILE_SIZE + chunk.offset.y - TILE_SIZE / 2);
+                                chunkX(entity.coords[0], chunk), chunkY(entity.coords[1], chunk) - TILE_SIZE / 2);
                 engine.addEntity(createdEntity);
             }
 
             for(LevelData.GeneralEntity entity : chunk.entities){
                 Entity createdEntity = recipes.getRecipe(entity.entityName).create(engine, resources,
-                        entity.coords[0] * TILE_SIZE + chunk.offset.x, entity.coords[1] * TILE_SIZE + chunk.offset.y);
+                        chunkX(entity.coords[0], chunk), chunkY(entity.coords[0], chunk));
                 engine.addEntity(createdEntity);
             }
 
             if(chunk.levelPortal != null){
                 Entity levelPortal = recipes.getRecipe("next_sign").create(engine, resources,
-                        chunk.levelPortal.coords[0] * TILE_SIZE + chunk.offset.x, chunk.levelPortal.coords[1] * TILE_SIZE + chunk.offset.y);
+                        chunkX(chunk.levelPortal.coords[0], chunk), chunkY(chunk.levelPortal.coords[1], chunk));
                 if(chunk.levelPortal.loadType.equals("internal"))
                     levelPortal.getComponent(LevelPortal.class).levelSupplier = () -> Level.loadInternal(chunk.levelPortal.levelName);
                 engine.addEntity(levelPortal);
