@@ -83,7 +83,7 @@ public class RecipeDatabase {
                 Entity entity = engine.createEntity();
                 Animated animated = engine.createComponent(Animated.class);
                 animated.animationData = resources.getAnimation("rain_drop");
-                animated.frameDelay = 1.f / 128;
+                animated.frameDelay = 1.f / 64;
                 animated.play("default", true);
                 Runnable runnable = engine.createComponent(Runnable.class);
                 runnable.runnable = (givenEngine, givenEntity, dt) -> {
@@ -93,7 +93,7 @@ public class RecipeDatabase {
                 Velocity velocity = engine.createComponent(Velocity.class);
                 velocity.velocity.set(0, -256);
                 Expiring expiring = engine.createComponent(Expiring.class);
-                expiring.expireTime = 5;
+                expiring.expireTime = .75f;
                 entity.add(animated);
                 entity.add(runnable);
                 entity.add(velocity);
