@@ -1,7 +1,9 @@
 package com.danilafe.duality.ecs;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.danilafe.duality.ResourceManager;
@@ -102,6 +104,19 @@ public class RecipeDatabase {
                 entity.add(engine.createComponent(SurfaceTracker.class));
                 entity.add(createPosition(engine, x, y));
                 entity.add(createCollisionBox(engine, x, y, 8, 8));
+                return entity;
+            }
+        });
+        recipies.put("rain_emitter", new Recipe() {
+            @Override
+            public Entity create(PooledEngine engine, ResourceManager resources, float x, float y) {
+                Entity entity = engine.createEntity();
+                Emitter emitter = engine.createComponent(Emitter.class);
+                emitter.particleDensity = 1.f / 4;
+                emitter.emitDelay = 1;
+                emitter.particleRecipe = getRecipe("rain");
+                entity.add(emitter);
+                entity.add(createCollisionBox(engine, x, y, 512, 8));
                 return entity;
             }
         });
