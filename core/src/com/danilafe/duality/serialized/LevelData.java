@@ -25,6 +25,8 @@ public class LevelData {
         public PlayerSpawn[] players = new PlayerSpawn[0];
         public DecorativeEntity[] decorations = new DecorativeEntity[0];
         public Coordinate[] tiles = new Coordinate[0];
+        public GeneralEntity[] entities = new GeneralEntity[0];
+        public LevelPortal levelPortal = null;
         public Vector2 offset = new Vector2();
     }
 
@@ -39,6 +41,17 @@ public class LevelData {
         public String entityName = "player";
         public int[] coords = new int[2];
         public int switchId = 0;
+    }
+
+    public static class GeneralEntity {
+        public String entityName = "";
+        public int[] coords = new int[2];
+    }
+
+    public static class LevelPortal {
+        public String loadType = "internal";
+        public String levelName = "";
+        public int[] coords = new int[2];
     }
 
     public static class SwitchGroup {

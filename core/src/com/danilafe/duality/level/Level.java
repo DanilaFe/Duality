@@ -11,6 +11,7 @@ import com.danilafe.duality.ecs.RecipeDatabase;
 import com.danilafe.duality.ecs.components.ActiveGroup;
 import com.danilafe.duality.ecs.components.Animated;
 import com.danilafe.duality.ecs.components.Camera;
+import com.danilafe.duality.ecs.components.LevelPortal;
 import com.danilafe.duality.ecs.systems.ActiveGroupSystem;
 import com.danilafe.duality.ecs.systems.RenderSystem;
 import com.danilafe.duality.serialized.LevelData;
@@ -101,6 +102,20 @@ public class Level {
                                 entity.loop,
                                 entity.coords[0] * TILE_SIZE + chunk.offset.x, entity.coords[1] * TILE_SIZE + chunk.offset.y - TILE_SIZE / 2);
                 engine.addEntity(createdEntity);
+            }
+
+            for(LevelData.GeneralEntity entity : chunk.entities){
+                Entity createdEntity = recipes.getRecipe(entity.entityName).create(engine, resources,
+                        entity.coords[0] * TILE_SIZE + chunk.offset.x, entity.coords[1] * TILE_SIZE + chunk.offset.y);
+                engine.addEntity(createdEntity);
+            }
+
+            if(chunk.levelPortal != null){
+                Entity levelPortal = recipes.getRecipe("next_sign").create(engine, resources,
+                        chunk.levelPortal.coords[0] * TILE_SIZE + chunk.offset.x, chunk.levelPortal.coords[1] * TILE_SIZE + chunk.offset.y);
+                if(chunk.levelPortal.loadType.equals("internal"))
+                    levelPortal.getComponent(LevelPortal.class).levelSupplier = () -> Level.loadInternal(chunk.levelPortal.levelName);
+                engine.addEntity(levelPortal);
             }
         }
     }
