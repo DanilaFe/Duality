@@ -3,14 +3,15 @@ package com.danilafe.duality.ecs.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.danilafe.duality.ecs.components.Animated;
-import com.danilafe.duality.ecs.components.Position;
+import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.ecs.components.Camera;
 
 public class RenderSystem extends IteratingSystem {
 
@@ -74,6 +75,9 @@ public class RenderSystem extends IteratingSystem {
 
     @Override
     public void update(float deltaTime) {
+        ImmutableArray<Entity> cameraEntities = getEngine().getEntitiesFor(Family.all(com.danilafe.duality.ecs.components.Camera.class).get());
+        activeCamera = (cameraEntities.size() > 0) ? cameraEntities.first().getComponent(Camera.class).camera : null;
+
         if (increasing && transition < 1) {
             transition += deltaTime / TRANSITION_DURATION;
             if (transition > 1) transition = 1;
