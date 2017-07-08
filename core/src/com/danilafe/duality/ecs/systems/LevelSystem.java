@@ -17,7 +17,6 @@ import com.danilafe.duality.level.Level;
 
 public class LevelSystem extends DualSystem {
 
-    public int levelTransitKey = Input.Keys.UP;
     public Level currentLevel;
     public Level toLoad;
 
@@ -34,12 +33,15 @@ public class LevelSystem extends DualSystem {
             OverlapTracker tracker = portalEntity.getComponent(OverlapTracker.class);
 
             boolean canTransition = true;
+            boolean transitionRequested = false;
             for(Entity otherEntity : entitiesA){
-                if(otherEntity.getComponent(ActiveGroup.class).active)
+                if(otherEntity.getComponent(ActiveGroup.class).active) {
                     canTransition &= tracker.entities.contains(otherEntity, false);
+                    transitionRequested = transitionRequested || otherEntity.getComponent(Player.class).controlData.interactPressed();
+                }
             }
 
-            if(canTransition && Gdx.input.isKeyJustPressed(levelTransitKey) && portal.levelSupplier != null){
+            if(canTransition && transitionRequested && portal.levelSupplier != null){
                 toLoad = portal.levelSupplier.get();
                 return;
             }

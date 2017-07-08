@@ -45,13 +45,11 @@ public class PlayerSystem extends IteratingSystem {
             return;
         }
 
-        float xAccel = 0;
-        if (Gdx.input.isKeyPressed(player.leftKey)) xAccel -= PLAYER_ACCELERATION;
-        if (Gdx.input.isKeyPressed(player.rightKey)) xAccel += PLAYER_ACCELERATION;
+        float xAccel = player.controlData.horizontalAccel() * PLAYER_ACCELERATION;
         acceleration.acceleration.x = xAccel;
         frictionEntity.reduceAmount = (xAccel == 0 || Math.signum(xAccel) != Math.signum(velocity.velocity.x)) ? PLAYER_FRICTION_STANDING : PLAYER_FRICTION_MOVING;
 
-        if (Gdx.input.isKeyJustPressed(player.jumpKey) && entity.getComponent(SurfaceTracker.class).onSurface)
+        if (player.controlData.jumpPressed() && entity.getComponent(SurfaceTracker.class).onSurface)
             velocity.velocity.y = PLAYER_VELOCITY_JUMP;
     }
 
