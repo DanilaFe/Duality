@@ -16,17 +16,17 @@ public class OverlapSystem extends DualSystem {
 
     @Override
     public void update(float deltaTime) {
-        for(Entity tracker : entitiesB){
+        for (Entity tracker : entitiesB) {
             OverlapTracker trackerComponent = tracker.getComponent(OverlapTracker.class);
             CollisionBox collisionBox = tracker.getComponent(CollisionBox.class);
 
             trackerComponent.entities.clear();
-            for(Entity overlapCheck : entitiesA){
+            for (Entity overlapCheck : entitiesA) {
                 CollisionBox otherCollisionBox = overlapCheck.getComponent(CollisionBox.class);
-                if(collisionBox.box.overlaps(otherCollisionBox.box))
+                if (collisionBox.box.overlaps(otherCollisionBox.box))
                     trackerComponent.entities.add(overlapCheck);
             }
         }
     }
-    
+
 }

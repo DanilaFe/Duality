@@ -5,7 +5,6 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.danilafe.duality.ResourceManager;
-import com.danilafe.duality.ecs.RecipeDatabase;
 import com.danilafe.duality.ecs.components.CollisionBox;
 import com.danilafe.duality.ecs.components.Emitter;
 
@@ -13,7 +12,7 @@ public class EmitterSystem extends IteratingSystem {
 
     public ResourceManager resources;
 
-    public EmitterSystem(){
+    public EmitterSystem() {
         super(Family.all(CollisionBox.class, Emitter.class).get());
     }
 
@@ -24,7 +23,7 @@ public class EmitterSystem extends IteratingSystem {
 
         emitter.currentEmitDelay = emitter.emitDelay / (box.box.area() * emitter.particleDensity);
         emitter.currentDelay -= deltaTime;
-        while(emitter.currentDelay < 0 && emitter.emitDelay != 0){
+        while (emitter.currentDelay < 0 && emitter.emitDelay != 0) {
             emitter.currentDelay += emitter.currentEmitDelay;
             getEngine().addEntity(emitter.particleRecipe.create((PooledEngine) getEngine(), resources,
                     box.box.x + (float) Math.random() * box.box.width,

@@ -20,7 +20,7 @@ public class LevelData {
         public String bottomFrame = "default";
     }
 
-    public static class Coordinate extends Positioned{
+    public static class Coordinate extends Positioned {
         public String tile = "wall";
     }
 

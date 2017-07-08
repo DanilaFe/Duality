@@ -4,7 +4,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
@@ -17,7 +16,7 @@ public class ActiveGroupSystem extends EntitySystem {
     public IntIntMap keysToId;
     public IntMap<Boolean> idTransitions;
 
-    public ActiveGroupSystem(){
+    public ActiveGroupSystem() {
         keysToId = new IntIntMap();
         idTransitions = new IntMap<>();
     }
@@ -27,9 +26,9 @@ public class ActiveGroupSystem extends EntitySystem {
         idTransitions.put(id, transiton);
     }
 
-    private Entity getPositioningEntity(PooledEngine engine){
+    private Entity getPositioningEntity(PooledEngine engine) {
         ImmutableArray<Entity> averageEntities = engine.getEntitiesFor(Family.all(Average.class, Position.class).get());
-        if(averageEntities.size() > 0) return averageEntities.first();
+        if (averageEntities.size() > 0) return averageEntities.first();
 
         Entity newEntity = engine.createEntity();
         newEntity.add(engine.createComponent(Average.class));
@@ -47,16 +46,16 @@ public class ActiveGroupSystem extends EntitySystem {
             ActiveGroup group = cameraEntity.getComponent(ActiveGroup.class);
             if (group.switchId == id) cameraEntities.add(cameraEntity);
         }
-        if(cameraEntities.size == 0) return;
-        for(Entity cameraEntity : activeGroups){
+        if (cameraEntities.size == 0) return;
+        for (Entity cameraEntity : activeGroups) {
             ActiveGroup group = cameraEntity.getComponent(ActiveGroup.class);
             group.active = group.switchId == id;
         }
 
         Entity toFollow = null;
-        if(cameraEntities.size == 1){
+        if (cameraEntities.size == 1) {
             toFollow = cameraEntities.first();
-        } else if(cameraEntities.size > 1) {
+        } else if (cameraEntities.size > 1) {
             Average averageComponent = (toFollow = getPositioningEntity(engine)).getComponent(Average.class);
             averageComponent.entities.clear();
             averageComponent.entities.addAll(cameraEntities);

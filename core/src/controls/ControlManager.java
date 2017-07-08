@@ -11,7 +11,7 @@ public class ControlManager {
     private Array<ControlData> controls;
     private Array<Integer> groupKeys;
 
-    public ControlManager(){
+    public ControlManager() {
         loadControls();
         loadGroupKeys();
     }
@@ -30,13 +30,13 @@ public class ControlManager {
         groupKeys.add(Input.Keys.C);
     }
 
-    public ControlData getNthControl(int id){
-        if(id < controls.size) return controls.get(id);
+    public ControlData getNthControl(int id) {
+        if (id < controls.size) return controls.get(id);
         else return controls.get(0);
     }
 
-    public int getNthGroupKey(int id){
-        if(id < groupKeys.size) return groupKeys.get(id);
+    public int getNthGroupKey(int id) {
+        if (id < groupKeys.size) return groupKeys.get(id);
         else return groupKeys.get(0);
     }
 

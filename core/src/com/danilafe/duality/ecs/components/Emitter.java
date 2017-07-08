@@ -4,8 +4,6 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Pool;
 import com.danilafe.duality.ecs.Recipe;
 
-import java.util.function.Supplier;
-
 public class Emitter implements Pool.Poolable, Component {
 
     public float currentDelay;

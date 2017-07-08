@@ -10,8 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.ecs.components.Animated;
 import com.danilafe.duality.ecs.components.Camera;
+import com.danilafe.duality.ecs.components.Position;
 
 public class RenderSystem extends IteratingSystem {
 

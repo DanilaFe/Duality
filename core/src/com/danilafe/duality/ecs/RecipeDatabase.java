@@ -1,15 +1,12 @@
 package com.danilafe.duality.ecs;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.components.*;
 import com.danilafe.duality.ecs.components.Runnable;
-import com.danilafe.duality.level.Level;
 
 public class RecipeDatabase {
 
@@ -90,8 +87,8 @@ public class RecipeDatabase {
                 animated.play("default", true);
                 Runnable runnable = engine.createComponent(Runnable.class);
                 runnable.runnable = (givenEngine, givenEntity, dt) -> {
-                  if(givenEntity.getComponent(Velocity.class).velocity.y == 0)
-                      givenEntity.getComponent(Animated.class).play("drop", false);
+                    if (givenEntity.getComponent(Velocity.class).velocity.y == 0)
+                        givenEntity.getComponent(Animated.class).play("drop", false);
                 };
                 Velocity velocity = engine.createComponent(Velocity.class);
                 velocity.velocity.set(0, -256);

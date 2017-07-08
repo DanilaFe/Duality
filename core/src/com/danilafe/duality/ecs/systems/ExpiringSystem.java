@@ -14,7 +14,7 @@ public class ExpiringSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        if((entity.getComponent(Expiring.class).expireTime -= deltaTime) < 0)
+        if ((entity.getComponent(Expiring.class).expireTime -= deltaTime) < 0)
             EntityUtils.safeDelete(getEngine(), entity);
     }
 }

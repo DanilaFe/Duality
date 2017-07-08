@@ -12,7 +12,7 @@ public class ControlData {
     private int interactKey;
     private Controller controller;
 
-    public ControlData(int left, int right, int jump, int interact, Controller cnt){
+    public ControlData(int left, int right, int jump, int interact, Controller cnt) {
         leftKey = left;
         rightKey = right;
         jumpKey = jump;
@@ -20,19 +20,19 @@ public class ControlData {
         controller = cnt;
     }
 
-    public ControlData(){
+    public ControlData() {
         this(Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SPACE, Input.Keys.UP, null);
     }
 
-    public float horizontalAccel(){
+    public float horizontalAccel() {
         return (Gdx.input.isKeyPressed(leftKey) ? -1 : 0) + (Gdx.input.isKeyPressed(rightKey) ? 1 : 0);
     }
 
-    public boolean jumpPressed(){
+    public boolean jumpPressed() {
         return Gdx.input.isKeyPressed(jumpKey);
     }
 
-    public boolean interactPressed(){
+    public boolean interactPressed() {
         return Gdx.input.isKeyPressed(interactKey);
     }
 

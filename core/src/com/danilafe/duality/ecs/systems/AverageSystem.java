@@ -8,7 +8,7 @@ import com.danilafe.duality.ecs.components.Position;
 
 public class AverageSystem extends IteratingSystem {
 
-    public AverageSystem(){
+    public AverageSystem() {
         super(Family.all(Average.class, Position.class).get());
     }
 
@@ -17,9 +17,9 @@ public class AverageSystem extends IteratingSystem {
         Position position = entity.getComponent(Position.class);
         Average average = entity.getComponent(Average.class);
 
-        if(average.entities.size != 0){
+        if (average.entities.size != 0) {
             position.position.set(0, 0);
-            for(Entity following : average.entities){
+            for (Entity following : average.entities) {
                 Position followingPos = following.getComponent(Position.class);
                 position.position.add(followingPos.position);
             }
