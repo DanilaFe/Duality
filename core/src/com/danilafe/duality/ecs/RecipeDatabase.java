@@ -33,6 +33,7 @@ public class RecipeDatabase {
                 acceleration.acceleration.y = -512;
                 entity.add(animated);
                 entity.add(acceleration);
+                entity.add(engine.createComponent(Overlapping.class));
                 entity.add(engine.createComponent(ActiveGroup.class));
                 entity.add(engine.createComponent(SurfaceTracker.class));
                 entity.add(engine.createComponent(Player.class));
@@ -117,6 +118,21 @@ public class RecipeDatabase {
                 emitter.particleRecipe = getRecipe("rain");
                 entity.add(emitter);
                 entity.add(createCollisionBox(engine, x, y, 512, 8));
+                return entity;
+            }
+        });
+        recipies.put("next_sign", new Recipe() {
+            @Override
+            public Entity create(PooledEngine engine, ResourceManager resources, float x, float y) {
+                Entity entity = engine.createEntity();
+                Animated animated = engine.createComponent(Animated.class);
+                animated.animationData = resources.getAnimation("next_sign");
+                animated.play("default", false);
+                entity.add(animated);
+                entity.add(engine.createComponent(LevelPortal.class));
+                entity.add(engine.createComponent(OverlapTracker.class));
+                entity.add(createCollisionBox(engine, x, y, 16, 16));
+                entity.add(createPosition(engine, x, y));
                 return entity;
             }
         });

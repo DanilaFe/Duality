@@ -8,7 +8,8 @@
     "monochrome/pillar_full.png",
     "monochrome/tree_air.png",
     "monochrome/tree_ground.png",
-    "monochrome/rain_drop.png"
+    "monochrome/rain_drop.png",
+    "monochrome/next_sign.png"
   ],
   "shaders": [
     "default"
@@ -142,6 +143,18 @@
         ],
         "drop": [
           1, 2, 3, 4, 5, 6
+        ]
+      }
+    },
+    "next_sign": {
+      "rawTexture": "monochrome/next_sign.png",
+      "dimensions": [
+        16,
+        16
+      ],
+      "animations": {
+        "default": [
+          0
         ]
       }
     }
