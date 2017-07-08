@@ -1,6 +1,7 @@
 package com.danilafe.duality.level;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
@@ -9,9 +10,9 @@ import com.danilafe.duality.ecs.EntityUtils;
 import com.danilafe.duality.ecs.RecipeDatabase;
 import com.danilafe.duality.ecs.components.ActiveGroup;
 import com.danilafe.duality.ecs.components.Animated;
-import com.danilafe.duality.ecs.components.Player;
+import com.danilafe.duality.ecs.components.Camera;
 import com.danilafe.duality.ecs.systems.ActiveGroupSystem;
-import com.danilafe.duality.ecs.systems.PlayerSystem;
+import com.danilafe.duality.ecs.systems.RenderSystem;
 import com.danilafe.duality.serialized.LevelData;
 
 public class Level {
@@ -29,6 +30,8 @@ public class Level {
 
     public void create(PooledEngine engine, ResourceManager resources, RecipeDatabase recipes){
         engine.addEntity(recipes.getRecipe("camera").create(engine, resources, 0, 0));
+        engine.getEntitiesFor(Family.all(Camera.class).get()).first().getComponent(Camera.class).camera
+                .setToOrtho(false, RenderSystem.VIEW_WIDTH, RenderSystem.VIEW_WIDTH * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
 
         for(LevelData.Chunk chunk : levelData.chunks){
             int maxX = 0;

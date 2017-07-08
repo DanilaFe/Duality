@@ -15,6 +15,7 @@ import com.danilafe.duality.ecs.components.Camera;
 
 public class RenderSystem extends IteratingSystem {
 
+    public static final int VIEW_WIDTH = 128;
     static final float TRANSITION_DURATION = .5f;
     static final Color CLEAR_COLOR = new Color(Color.BLACK);
 
