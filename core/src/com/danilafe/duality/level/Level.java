@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Json;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.EntityUtils;
@@ -101,11 +103,18 @@ public class Level {
             }
             ActiveGroupSystem activeGroupSystem = engine.getSystem(ActiveGroupSystem.class);
             activeGroupSystem.idTransitions.clear();
+            IntArray groups = new IntArray();
             for (String key : levelData.groups.keys()) {
-                int groupId = Integer.parseInt(key);
-                LevelData.SwitchGroup group = levelData.groups.get(key);
-                activeGroupSystem.idTransitions.put(groupId, group.transition);
-                if (group.active) activeGroupSystem.switchGroup(groupId);
+                groups.add(Integer.parseInt(key));
+            }
+            boolean transition = false;
+            for(int i = 0; i < groups.size; i++){
+                LevelData.SwitchGroup group = levelData.groups.get(Integer.toString(i));
+                activeGroupSystem.groupTransitions.put(groups.get(i), groups.get((i + 1) % groups.size));
+                activeGroupSystem.idTransitions.put(groups.get(i), transition);
+
+                if(group.active) activeGroupSystem.switchGroup(groups.get(i));
+                transition = !transition;
             }
 
             for (LevelData.DecorativeEntity entity : chunk.decorations) {

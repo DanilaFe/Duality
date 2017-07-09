@@ -2,10 +2,7 @@ package com.danilafe.duality.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.danilafe.duality.ecs.components.ActiveGroup;
-import com.danilafe.duality.ecs.components.LevelPortal;
-import com.danilafe.duality.ecs.components.OverlapTracker;
-import com.danilafe.duality.ecs.components.Player;
+import com.danilafe.duality.ecs.components.*;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
 import com.danilafe.duality.level.Level;
 
@@ -15,7 +12,7 @@ public class LevelSystem extends DualSystem {
     public Level toLoad;
 
     public LevelSystem() {
-        super(Family.all(Player.class, ActiveGroup.class).get(),
+        super(Family.all(Player.class, ActiveGroup.class, Input.class).get(),
                 Family.all(OverlapTracker.class, LevelPortal.class).get());
     }
 
@@ -31,7 +28,7 @@ public class LevelSystem extends DualSystem {
             for (Entity otherEntity : entitiesA) {
                 if (otherEntity.getComponent(ActiveGroup.class).active) {
                     canTransition &= tracker.entities.contains(otherEntity, false);
-                    transitionRequested = transitionRequested || otherEntity.getComponent(Player.class).controlData.interactPressed();
+                    transitionRequested = transitionRequested || otherEntity.getComponent(Input.class).controlData.interactPressed();
                 }
             }
 

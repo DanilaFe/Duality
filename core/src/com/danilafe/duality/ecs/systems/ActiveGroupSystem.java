@@ -7,23 +7,22 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.badlogic.gdx.utils.IntMap;
 import com.danilafe.duality.ecs.components.*;
 
 public class ActiveGroupSystem extends EntitySystem {
 
-    public IntIntMap keysToId;
+    static final float SWAP_DELAY = 1f;
+    private float delay;
+    private int currentGroup;
+    public IntIntMap groupTransitions;
     public IntMap<Boolean> idTransitions;
 
     public ActiveGroupSystem() {
-        keysToId = new IntIntMap();
+        groupTransitions = new IntIntMap();
         idTransitions = new IntMap<>();
-    }
-
-    public void registerGroup(int id, int key, boolean transiton) {
-        keysToId.put(key, id);
-        idTransitions.put(id, transiton);
     }
 
     private Entity getPositioningEntity(PooledEngine engine) {
@@ -64,12 +63,20 @@ public class ActiveGroupSystem extends EntitySystem {
         engine.getEntitiesFor(Family.all(Following.class, Camera.class).get())
                 .first().getComponent(Following.class).otherEntity = toFollow;
         engine.getSystem(RenderSystem.class).increasing = idTransitions.get(id);
+        currentGroup = id;
     }
 
     @Override
     public void update(float deltaTime) {
-        for (IntIntMap.Entry entry : keysToId.entries()) {
-            if (Gdx.input.isKeyPressed(entry.key)) switchGroup(entry.value);
+        delay -= deltaTime;
+        if(delay < 0) delay = 0;
+
+        for(Entity entity : getEngine().getEntitiesFor(Family.all(Input.class, ActiveGroup.class).get())){
+            if(entity.getComponent(ActiveGroup.class).active &&
+                    entity.getComponent(Input.class).controlData.switchPressed() && delay == 0) {
+                switchGroup(groupTransitions.get(currentGroup, 0));
+                delay = SWAP_DELAY;
+            }
         }
     }
 }

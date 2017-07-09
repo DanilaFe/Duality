@@ -54,7 +54,6 @@ public class LevelData {
     }
 
     public static class SwitchGroup {
-        public boolean transition = false;
         public boolean active = false;
     }
 
