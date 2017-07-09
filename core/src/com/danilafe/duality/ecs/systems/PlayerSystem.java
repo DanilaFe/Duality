@@ -15,13 +15,13 @@ public class PlayerSystem extends IteratingSystem {
     static final float PLAYER_FRICTION_MOVING = .25f;
 
     public PlayerSystem() {
-        super(Family.all(Player.class, Acceleration.class, Velocity.class, FrictionEntity.class, Animated.class, SurfaceTracker.class, ActiveGroup.class, Input.class).get());
+        super(Family.all(Player.class, Acceleration.class, Velocity.class, FrictionEntity.class,
+                Animated.class, SurfaceTracker.class, ActiveGroup.class, Input.class).get());
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         ActiveGroup group = entity.getComponent(ActiveGroup.class);
-        Player player = entity.getComponent(Player.class);
         Acceleration acceleration = entity.getComponent(Acceleration.class);
         Velocity velocity = entity.getComponent(Velocity.class);
         FrictionEntity frictionEntity = entity.getComponent(FrictionEntity.class);
