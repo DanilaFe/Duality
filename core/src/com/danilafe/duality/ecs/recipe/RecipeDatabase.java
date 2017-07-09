@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.components.*;
 import com.danilafe.duality.ecs.components.Runnable;
-import com.danilafe.duality.ecs.recipe.Recipe;
 
 public class RecipeDatabase {
 

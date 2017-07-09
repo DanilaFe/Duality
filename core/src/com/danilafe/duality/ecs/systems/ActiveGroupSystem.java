@@ -5,9 +5,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.utils.ImmutableArray;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.badlogic.gdx.utils.IntMap;
 import com.danilafe.duality.ecs.components.*;
@@ -69,10 +67,10 @@ public class ActiveGroupSystem extends EntitySystem {
     @Override
     public void update(float deltaTime) {
         delay -= deltaTime;
-        if(delay < 0) delay = 0;
+        if (delay < 0) delay = 0;
 
-        for(Entity entity : getEngine().getEntitiesFor(Family.all(Input.class, ActiveGroup.class).get())){
-            if(entity.getComponent(ActiveGroup.class).active &&
+        for (Entity entity : getEngine().getEntitiesFor(Family.all(Input.class, ActiveGroup.class).get())) {
+            if (entity.getComponent(ActiveGroup.class).active &&
                     entity.getComponent(Input.class).controlData.switchPressed() && delay == 0) {
                 switchGroup(groupTransitions.get(currentGroup, 0));
                 delay = SWAP_DELAY;
