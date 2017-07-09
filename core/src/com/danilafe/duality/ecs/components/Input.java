@@ -12,5 +12,5 @@ public class Input implements Component, Pool.Poolable {
     public void reset() {
         controlData = null;
     }
-    
+
 }
