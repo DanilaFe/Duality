@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.ecs.EntityUtils;
-import com.danilafe.duality.ecs.RecipeDatabase;
+import com.danilafe.duality.ecs.recipe.RecipeDatabase;
 import com.danilafe.duality.ecs.components.ActiveGroup;
 import com.danilafe.duality.ecs.components.Animated;
 import com.danilafe.duality.ecs.components.Camera;

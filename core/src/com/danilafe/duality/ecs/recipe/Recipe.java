@@ -1,4 +1,4 @@
-package com.danilafe.duality.ecs;
+package com.danilafe.duality.ecs.recipe;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;

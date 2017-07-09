@@ -2,7 +2,7 @@ package com.danilafe.duality.ecs.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Pool;
-import com.danilafe.duality.ecs.Recipe;
+import com.danilafe.duality.ecs.recipe.Recipe;
 
 public class Emitter implements Pool.Poolable, Component {
 

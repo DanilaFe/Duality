@@ -1,4 +1,4 @@
-package controls;
+package com.danilafe.duality.controls;
 
 
 import com.badlogic.gdx.Input;
