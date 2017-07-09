@@ -15,12 +15,12 @@ public class ActiveGroupSystem extends EntitySystem {
     static final float SWAP_DELAY = 1f;
     private float delay;
     private int currentGroup;
-    public IntIntMap groupTransitions;
-    public IntMap<Boolean> idTransitions;
+    public IntIntMap nextGroupMap;
+    public IntMap<Boolean> groupTransitions;
 
     public ActiveGroupSystem() {
-        groupTransitions = new IntIntMap();
-        idTransitions = new IntMap<>();
+        nextGroupMap = new IntIntMap();
+        groupTransitions = new IntMap<>();
     }
 
     private Entity getPositioningEntity(PooledEngine engine) {
@@ -36,6 +36,7 @@ public class ActiveGroupSystem extends EntitySystem {
 
     public void switchGroup(int id) {
         PooledEngine engine = (PooledEngine) getEngine();
+        Entity averageEntity = getPositioningEntity(engine);
         Array<Entity> cameraEntities = new Array<>();
         ImmutableArray<Entity> activeGroups = engine.getEntitiesFor(Family.all(ActiveGroup.class).get());
 
@@ -49,18 +50,13 @@ public class ActiveGroupSystem extends EntitySystem {
             group.active = group.switchId == id;
         }
 
-        Entity toFollow = null;
-        if (cameraEntities.size == 1) {
-            toFollow = cameraEntities.first();
-        } else if (cameraEntities.size > 1) {
-            Average averageComponent = (toFollow = getPositioningEntity(engine)).getComponent(Average.class);
-            averageComponent.entities.clear();
-            averageComponent.entities.addAll(cameraEntities);
-        }
+        Average averageComponent = averageEntity.getComponent(Average.class);
+        averageComponent.entities.clear();
+        averageComponent.entities.addAll(cameraEntities);
 
         engine.getEntitiesFor(Family.all(Following.class, Camera.class).get())
-                .first().getComponent(Following.class).otherEntity = toFollow;
-        engine.getSystem(RenderSystem.class).increasing = idTransitions.get(id);
+                .first().getComponent(Following.class).otherEntity = averageEntity;
+        engine.getSystem(RenderSystem.class).increasing = groupTransitions.get(id);
         currentGroup = id;
     }
 
@@ -72,7 +68,7 @@ public class ActiveGroupSystem extends EntitySystem {
         for (Entity entity : getEngine().getEntitiesFor(Family.all(Input.class, ActiveGroup.class).get())) {
             if (entity.getComponent(ActiveGroup.class).active &&
                     entity.getComponent(Input.class).controlData.switchPressed() && delay == 0) {
-                switchGroup(groupTransitions.get(currentGroup, 0));
+                switchGroup(nextGroupMap.get(currentGroup, 0));
                 delay = SWAP_DELAY;
             }
         }

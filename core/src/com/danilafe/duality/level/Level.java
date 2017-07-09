@@ -148,7 +148,7 @@ public class Level {
 
     private void loadGroups(PooledEngine engine) {
         ActiveGroupSystem activeGroupSystem = engine.getSystem(ActiveGroupSystem.class);
-        activeGroupSystem.idTransitions.clear();
+        activeGroupSystem.groupTransitions.clear();
         IntArray groups = new IntArray();
         for (String key : levelData.groups.keys()) {
             groups.add(Integer.parseInt(key));
@@ -156,8 +156,8 @@ public class Level {
         boolean transition = false;
         for (int i = 0; i < groups.size; i++) {
             LevelData.SwitchGroup group = levelData.groups.get(Integer.toString(i));
-            activeGroupSystem.groupTransitions.put(groups.get(i), groups.get((i + 1) % groups.size));
-            activeGroupSystem.idTransitions.put(groups.get(i), transition);
+            activeGroupSystem.nextGroupMap.put(groups.get(i), groups.get((i + 1) % groups.size));
+            activeGroupSystem.groupTransitions.put(groups.get(i), transition);
 
             if (group.active) activeGroupSystem.switchGroup(groups.get(i));
             transition = !transition;
