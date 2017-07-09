@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.math.Rectangle;
 import com.danilafe.duality.ecs.components.CollisionBox;
+import com.danilafe.duality.ecs.components.Platform;
 import com.danilafe.duality.ecs.components.Solid;
 import com.danilafe.duality.ecs.components.SurfaceTracker;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
@@ -11,7 +12,7 @@ import com.danilafe.duality.ecs.systems.util.DualSystem;
 public class SurfaceSystem extends DualSystem {
 
     public SurfaceSystem() {
-        super(Family.all(Solid.class, CollisionBox.class).get(),
+        super(Family.all(CollisionBox.class).one(Solid.class, Platform.class).get(),
                 Family.all(SurfaceTracker.class, CollisionBox.class).get());
     }
 
