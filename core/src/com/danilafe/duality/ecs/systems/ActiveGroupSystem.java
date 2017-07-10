@@ -42,7 +42,9 @@ public class ActiveGroupSystem extends EntitySystem {
 
         for (Entity cameraEntity : activeGroups) {
             ActiveGroup group = cameraEntity.getComponent(ActiveGroup.class);
-            if (group.switchId == id) cameraEntities.add(cameraEntity);
+            if (group.switchId == id && cameraEntity.getComponent(CameraTracker.class) != null) {
+                cameraEntities.add(cameraEntity);
+            }
         }
         if (cameraEntities.size == 0) return;
         for (Entity cameraEntity : activeGroups) {
