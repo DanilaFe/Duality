@@ -8,11 +8,11 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.badlogic.gdx.utils.IntMap;
+import com.danilafe.duality.Constants;
 import com.danilafe.duality.ecs.components.*;
 
 public class ActiveGroupSystem extends EntitySystem {
 
-    static final float SWAP_DELAY = 1f;
     private float delay;
     private int currentGroup;
     public IntIntMap nextGroupMap;
@@ -71,7 +71,7 @@ public class ActiveGroupSystem extends EntitySystem {
             if (entity.getComponent(ActiveGroup.class).active &&
                     entity.getComponent(Input.class).controlData.switchPressed() && delay == 0) {
                 switchGroup(nextGroupMap.get(currentGroup, 0));
-                delay = SWAP_DELAY;
+                delay = Constants.SWAP_DELAY;
             }
         }
     }

@@ -10,15 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.danilafe.duality.Constants;
 import com.danilafe.duality.ecs.components.Animated;
 import com.danilafe.duality.ecs.components.Camera;
 import com.danilafe.duality.ecs.components.Position;
 
 public class RenderSystem extends IteratingSystem {
-
-    public static final int VIEW_WIDTH = 128;
-    static final float TRANSITION_DURATION = .5f;
-    static final Color CLEAR_COLOR = new Color(Color.BLACK);
 
     public OrthographicCamera activeCamera;
     public Texture backgroundTexture;
@@ -81,10 +78,10 @@ public class RenderSystem extends IteratingSystem {
         activeCamera = (cameraEntities.size() > 0) ? cameraEntities.first().getComponent(Camera.class).camera : null;
 
         if (increasing && transition < 1) {
-            transition += deltaTime / TRANSITION_DURATION;
+            transition += deltaTime / Constants.TRANSITION_DURATION;
             if (transition > 1) transition = 1;
         } else if (!increasing && transition > 0) {
-            transition -= deltaTime / TRANSITION_DURATION;
+            transition -= deltaTime / Constants.TRANSITION_DURATION;
             if (transition < 0) transition = 0;
         }
 
@@ -122,10 +119,10 @@ public class RenderSystem extends IteratingSystem {
             shaderProgram.setUniformi("u_background", 1);
             shaderProgram.setUniformf("u_transition", transition);
             shaderProgram.setUniform4fv("u_clearColor", new float[]{
-                    CLEAR_COLOR.r,
-                    CLEAR_COLOR.g,
-                    CLEAR_COLOR.b,
-                    CLEAR_COLOR.a
+                    Constants.CLEAR_COLOR.r,
+                    Constants.CLEAR_COLOR.g,
+                    Constants.CLEAR_COLOR.b,
+                    Constants.CLEAR_COLOR.a
             }, 0, 4);
             activeBatch.setShader(shaderProgram);
             activeBatch.draw(gameBuffer.getColorBufferTexture(), 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());

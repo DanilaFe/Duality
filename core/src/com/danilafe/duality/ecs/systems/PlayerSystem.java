@@ -3,16 +3,10 @@ package com.danilafe.duality.ecs.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.danilafe.duality.Constants;
 import com.danilafe.duality.ecs.components.*;
 
 public class PlayerSystem extends IteratingSystem {
-
-    static final float PLAYER_ACCELERATION = 256;
-    static final float PLAYER_VELOCITY_LIMIT = 96;
-    static final float PLAYER_VELOCITY_JUMP = 172;
-
-    static final float PLAYER_FRICTION_STANDING = 1;
-    static final float PLAYER_FRICTION_MOVING = .25f;
 
     public PlayerSystem() {
         super(Family.all(Player.class, Acceleration.class, Velocity.class, FrictionEntity.class,
@@ -29,24 +23,24 @@ public class PlayerSystem extends IteratingSystem {
         PlatformWalker walker = entity.getComponent(PlatformWalker.class);
         Input input = entity.getComponent(Input.class);
 
-        if (velocity.velocity.x > PLAYER_VELOCITY_LIMIT) velocity.velocity.x = PLAYER_VELOCITY_LIMIT;
-        else if (velocity.velocity.x < -PLAYER_VELOCITY_LIMIT) velocity.velocity.x = -PLAYER_VELOCITY_LIMIT;
+        if (velocity.velocity.x > Constants.PLAYER_VELOCITY_LIMIT) velocity.velocity.x = Constants.PLAYER_VELOCITY_LIMIT;
+        else if (velocity.velocity.x < -Constants.PLAYER_VELOCITY_LIMIT) velocity.velocity.x = -Constants.PLAYER_VELOCITY_LIMIT;
         animated.flipHorizontal = velocity.velocity.x > 0;
 
         if (!group.active) {
             acceleration.acceleration.x = 0;
-            frictionEntity.reduceAmount = PLAYER_FRICTION_STANDING;
+            frictionEntity.reduceAmount = Constants.PLAYER_FRICTION_STANDING;
             return;
         }
 
-        float xAccel = input.controlData.horizontalAccel() * PLAYER_ACCELERATION;
+        float xAccel = input.controlData.horizontalAccel() * Constants.PLAYER_ACCELERATION;
         acceleration.acceleration.x = xAccel;
-        frictionEntity.reduceAmount = (xAccel == 0 || Math.signum(xAccel) != Math.signum(velocity.velocity.x)) ? PLAYER_FRICTION_STANDING : PLAYER_FRICTION_MOVING;
+        frictionEntity.reduceAmount = (xAccel == 0 || Math.signum(xAccel) != Math.signum(velocity.velocity.x)) ? Constants.PLAYER_FRICTION_STANDING : Constants.PLAYER_FRICTION_MOVING;
 
         walker.solid = !input.controlData.fallPressed();
 
         if (input.controlData.jumpPressed() && entity.getComponent(SurfaceTracker.class).onSurface)
-            velocity.velocity.y = PLAYER_VELOCITY_JUMP;
+            velocity.velocity.y = Constants.PLAYER_VELOCITY_JUMP;
     }
 
     @Override

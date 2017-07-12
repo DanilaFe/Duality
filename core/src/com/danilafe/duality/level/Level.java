@@ -8,18 +8,17 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Json;
+import com.danilafe.duality.Constants;
 import com.danilafe.duality.ResourceManager;
 import com.danilafe.duality.controls.ControlManager;
 import com.danilafe.duality.ecs.EntityUtils;
 import com.danilafe.duality.ecs.components.*;
 import com.danilafe.duality.ecs.recipe.RecipeDatabase;
 import com.danilafe.duality.ecs.systems.ActiveGroupSystem;
-import com.danilafe.duality.ecs.systems.RenderSystem;
 import com.danilafe.duality.serialized.LevelData;
 
 public class Level {
 
-    public static final float TILE_SIZE = 16;
     LevelData levelData;
 
     public Level(String levelFile) {
@@ -31,7 +30,7 @@ public class Level {
     }
 
     private float chunkCoord(int position, float offset) {
-        return position * TILE_SIZE + offset;
+        return position * Constants.TILE_SIZE + offset;
     }
 
     private float chunkX(int position, LevelData.Chunk chunk) {
@@ -123,7 +122,7 @@ public class Level {
             Entity createdEntity =
                     EntityUtils.createDecorativeEntity(engine, resources, entity.resourceName, entity.animationName,
                             entity.loop,
-                            chunkX(entity.coords[0], chunk), chunkY(entity.coords[1], chunk) - TILE_SIZE / 2);
+                            chunkX(entity.coords[0], chunk), chunkY(entity.coords[1], chunk) - Constants.TILE_SIZE / 2);
             engine.addEntity(createdEntity);
         }
     }
@@ -167,7 +166,7 @@ public class Level {
     public void create(PooledEngine engine, ResourceManager resources, RecipeDatabase recipes, ControlManager controls) {
         engine.addEntity(recipes.getRecipe("camera").create(engine, resources, 0, 0));
         engine.getEntitiesFor(Family.all(Camera.class).get()).first().getComponent(Camera.class).camera
-                .setToOrtho(false, RenderSystem.VIEW_WIDTH, RenderSystem.VIEW_WIDTH * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+                .setToOrtho(false, Constants.VIEW_WIDTH, Constants.VIEW_WIDTH * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
 
         for (LevelData.Chunk chunk : levelData.chunks) {
             loadChunkTiles(chunk, engine, resources, recipes);
