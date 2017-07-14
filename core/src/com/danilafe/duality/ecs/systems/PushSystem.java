@@ -40,7 +40,8 @@ public class PushSystem extends DualSystem {
 
                 if(!(pushableBox.box.x + pushableBox.box.width < pushingBox.box.x ||
                         pushableBox.box.x > pushingBox.box.x + pushingBox.box.width) &&
-                        !pushableComponent.entities.contains(pushing, false)) continue;
+                        !(pushableComponent.entities.containsKey(pushing) &&
+                                pushableComponent.entities.get(pushing) / pushingVelocity.velocity.x > 0)) continue;
                 if(pushingBottom >= futureTop || pushingTop <= futureBottom || pushingLeft > futureRight ||
                         pushingRight < futureLeft) continue;
 
@@ -59,13 +60,13 @@ public class PushSystem extends DualSystem {
                 entity.getComponent(Velocity.class).velocity.x = pushableVelocity.velocity.x;
                 entity.getComponent(Position.class).position.x =
                         pushableBox.box.x + pushableBox.box.width + entity.getComponent(CollisionBox.class).box.width / 2;
-                pushableComponent.entities.add(entity);
+                pushableComponent.entities.put(entity, -1.f);
             }
             for(Entity entity : entitiesPushingRight){
                 entity.getComponent(Velocity.class).velocity.x = pushableVelocity.velocity.x;
                 entity.getComponent(Position.class).position.x =
                         pushableBox.box.x - entity.getComponent(CollisionBox.class).box.width/ 2;
-                pushableComponent.entities.add(entity);
+                pushableComponent.entities.put(entity, 1.f);
             }
         }
     }
