@@ -30,6 +30,7 @@ public class RecipeDatabase {
                 acceleration.acceleration.y = -512;
                 entity.add(animated);
                 entity.add(acceleration);
+                entity.add(engine.createComponent(Pushing.class));
                 entity.add(engine.createComponent(CameraTracker.class));
                 entity.add(engine.createComponent(PlatformWalker.class));
                 entity.add(engine.createComponent(Input.class));
@@ -131,6 +132,27 @@ public class RecipeDatabase {
                 entity.add(animated);
                 entity.add(engine.createComponent(LevelPortal.class));
                 entity.add(engine.createComponent(OverlapTracker.class));
+                entity.add(createCollisionBox(engine, x, y, 16, 16));
+                entity.add(createPosition(engine, x, y));
+                return entity;
+            }
+        });
+        recipies.put("block", new Recipe() {
+            @Override
+            public Entity create(PooledEngine engine, ResourceManager resources, float x, float y) {
+                Entity entity = engine.createEntity();
+                Animated animated = engine.createComponent(Animated.class);
+                animated.animationData = resources.getAnimation("block");
+                animated.play("default", true);
+                Acceleration acceleration = engine.createComponent(Acceleration.class);
+                acceleration.acceleration.y = -512;
+                entity.add(animated);
+                entity.add(acceleration);
+                entity.add(engine.createComponent(Colliding.class));
+                entity.add(engine.createComponent(Pushable.class));
+                entity.add(engine.createComponent(Platform.class));
+                entity.add(engine.createComponent(PlatformWalker.class));
+                entity.add(engine.createComponent(Velocity.class));
                 entity.add(createCollisionBox(engine, x, y, 16, 16));
                 entity.add(createPosition(engine, x, y));
                 return entity;

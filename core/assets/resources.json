@@ -9,7 +9,8 @@
     "monochrome/tree_air.png",
     "monochrome/tree_ground.png",
     "monochrome/rain_drop.png",
-    "monochrome/next_sign.png"
+    "monochrome/next_sign.png",
+    "monochrome/block.png"
   ],
   "shaders": [
     "default"
@@ -53,6 +54,18 @@
         ],
         "bottom": [
           2
+        ]
+      }
+    },
+    "block": {
+      "rawTexture": "monochrome/block.png",
+      "dimensions": [
+        16,
+        16
+      ],
+      "animations": {
+        "default": [
+          0
         ]
       }
     },
