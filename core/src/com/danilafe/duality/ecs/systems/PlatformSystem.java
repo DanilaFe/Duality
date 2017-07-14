@@ -34,7 +34,7 @@ public class PlatformSystem extends DualSystem{
                 float platformBottom = platformBox.box.y;
                 float platformTop = platformBox.box.y + platformBox.box.height;
 
-                if(!(rightEdge < platformLeft|| leftEdge > platformRight) &&
+                if(!(rightEdge <= platformLeft|| leftEdge >= platformRight) &&
                         (platform.oneWay || walker.solid) && velocity.velocity.y <= 0 &&
                         collisionBox.box.y >= platformTop &&
                         (bottomEdge < platformTop && bottomEdge > platformBottom)){
