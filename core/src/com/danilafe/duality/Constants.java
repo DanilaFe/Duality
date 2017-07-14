@@ -15,4 +15,5 @@ public class Constants {
     public static final float PLAYER_FRICTION_MOVING = .25f;
     public static final int POSITION_DEPENDENCE = 128;
     public static final float SWAP_DELAY = 1f;
+    public static final float PUSH_DECREASE = .75f;
 }
