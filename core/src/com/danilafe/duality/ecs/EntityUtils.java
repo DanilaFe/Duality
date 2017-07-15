@@ -45,6 +45,9 @@ public class EntityUtils {
             Parent parent = e.getComponent(Parent.class);
             parent.children.removeValue(toDelete, false);
         });
+        engine.getEntitiesFor(Family.all(Pushable.class).get()).forEach(e -> {
+            e.getComponent(Pushable.class).entities.remove(toDelete);
+        });
         engine.getEntitiesFor(Family.all(SurfaceTracker.class).get()).forEach(e -> {
             SurfaceTracker tracker = e.getComponent(SurfaceTracker.class);
             if (tracker.lastSurface == toDelete) tracker.lastSurface = null;

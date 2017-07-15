@@ -26,7 +26,7 @@ public class FollowingSystem extends IteratingSystem {
         } else {
             Vector2 displacement = new Vector2(otherPosition.position).sub(pos.position);
             float distance = displacement.len();
-            float maxSpeed = fol.maxMove * Following.CURVE.apply(distance / Constants.POSITION_DEPENDENCE) * deltaTime;
+            float maxSpeed = fol.maxMove * Constants.FOLLOW_CURVE.apply(distance / Constants.POSITION_DEPENDENCE) * deltaTime;
             float actualMove = (distance < maxSpeed) ? distance : maxSpeed;
 
             displacement.setLength(actualMove);

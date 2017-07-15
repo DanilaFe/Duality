@@ -2,6 +2,8 @@ package com.danilafe.duality;
 
 import com.badlogic.gdx.graphics.Color;
 
+import java.util.function.Function;
+
 public class Constants {
 
     public static final float TILE_SIZE = 16;
@@ -16,4 +18,6 @@ public class Constants {
     public static final int POSITION_DEPENDENCE = 128;
     public static final float SWAP_DELAY = 1f;
     public static final float PUSH_DECREASE = .75f;
+    public static final Function<Float, Float> FOLLOW_CURVE =
+            (x) -> (float) (x / Math.sqrt(1 + Math.pow(x, 2)));
 }
