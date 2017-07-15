@@ -170,10 +170,10 @@ public class Level {
 
         for (LevelData.Chunk chunk : levelData.chunks) {
             loadChunkTiles(chunk, engine, resources, recipes);
-            loadChunkPlayers(chunk, engine, resources, recipes, controls);
             loadChunkDecorations(chunk, engine, resources);
             loadChunkEntities(chunk, engine, resources, recipes);
             loadChunkLevelPortal(chunk, engine, resources, recipes);
+            loadChunkPlayers(chunk, engine, resources, recipes, controls);
         }
         loadGroups(engine);
     }
