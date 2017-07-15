@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.danilafe.duality.Constants;
 import com.danilafe.duality.ecs.components.Animated;
 import com.danilafe.duality.ecs.components.Camera;
+import com.danilafe.duality.ecs.components.Colored;
 import com.danilafe.duality.ecs.components.Position;
 
 public class RenderSystem extends IteratingSystem {
@@ -55,6 +56,7 @@ public class RenderSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float deltaTime) {
         Animated anm = entity.getComponent(Animated.class);
         Position pos = entity.getComponent(Position.class);
+        Colored col = entity.getComponent(Colored.class);
 
         anm.currentDelay -= deltaTime;
         while (anm.currentDelay <= 0 && anm.frameDelay != 0) {
@@ -67,7 +69,7 @@ public class RenderSystem extends IteratingSystem {
 
         if (activeBatch == null) return;
         TextureRegion toRender = anm.animationData.getFrame(anm.currentFrames.get(anm.currentFrame));
-        activeBatch.setColor(anm.tint);
+        activeBatch.setColor((col == null) ? Color.WHITE : col.color);
         activeBatch
                 .draw(toRender, pos.position.x - toRender.getRegionWidth() / 2, pos.position.y - toRender.getRegionHeight() / 2, toRender.getRegionWidth() / 2, toRender.getRegionHeight() / 2, toRender.getRegionWidth() * 1.01f, toRender.getRegionHeight() * 1.01f, anm.flipHorizontal ? -1 : 1, anm.flipVertical ? -1 : 1, 0);
     }

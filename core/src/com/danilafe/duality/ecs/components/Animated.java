@@ -17,7 +17,6 @@ public class Animated implements Component, Pool.Poolable {
     public boolean loop;
     public boolean flipVertical;
     public boolean flipHorizontal;
-    public Color tint = new Color(Color.WHITE);
 
     public void play(String name, boolean doLoop) {
         if (currentAnimation == null || !currentAnimation.equals(name)) {
@@ -40,7 +39,6 @@ public class Animated implements Component, Pool.Poolable {
         loop = false;
         flipVertical = false;
         flipHorizontal = false;
-        tint.set(Color.WHITE);
     }
 
 }
