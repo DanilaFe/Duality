@@ -4,13 +4,18 @@
     "debug/slime_green_move_left.png",
     "monochrome/world_tiles.png",
     "monochrome/decor_small.png",
+    "monochrome/decor_floating.png",
+    "monochrome/decor_wide.png",
     "monochrome/pillar_cracked.png",
     "monochrome/pillar_full.png",
     "monochrome/tree_air.png",
     "monochrome/tree_ground.png",
     "monochrome/rain_drop.png",
     "monochrome/next_sign.png",
-    "monochrome/block.png"
+    "monochrome/block.png",
+    "monochrome/pathway.png",
+    "monochrome/spawn.png",
+    "monochrome/woman_statue.png"
   ],
   "shaders": [
     "default"
