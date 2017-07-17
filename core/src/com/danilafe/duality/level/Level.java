@@ -140,11 +140,11 @@ public class Level {
     }
 
     private void loadChunkLevelPortal(LevelData.Chunk chunk, PooledEngine engine, ResourceManager resources, RecipeDatabase recipes) {
-        if (chunk.levelPortal != null) {
+        for (LevelData.LevelPortal portal : chunk.levelPortals) {
             Entity levelPortal = recipes.getRecipe("next_sign").create(engine, resources,
-                    chunkX(chunk.levelPortal.coords[0], chunk), chunkY(chunk.levelPortal.coords[1], chunk));
-            if (chunk.levelPortal.loadType.equals("internal"))
-                levelPortal.getComponent(LevelPortal.class).levelSupplier = () -> Level.loadInternal(chunk.levelPortal.levelName);
+                    chunkX(portal.coords[0], chunk), chunkY(portal.coords[1], chunk));
+            if (portal.loadType.equals("internal"))
+                levelPortal.getComponent(LevelPortal.class).levelSupplier = () -> Level.loadInternal(portal.levelName);
             engine.addEntity(levelPortal);
         }
     }

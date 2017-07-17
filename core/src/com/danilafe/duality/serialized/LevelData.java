@@ -29,7 +29,7 @@ public class LevelData {
         public DecorativeEntity[] decorations = new DecorativeEntity[0];
         public Coordinate[] tiles = new Coordinate[0];
         public GeneralEntity[] entities = new GeneralEntity[0];
-        public LevelPortal levelPortal = null;
+        public LevelPortal[] levelPortals = new LevelPortal[0];
         public Vector2 offset = new Vector2();
     }
 
