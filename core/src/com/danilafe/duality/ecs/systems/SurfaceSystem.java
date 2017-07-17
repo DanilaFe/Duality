@@ -3,10 +3,10 @@ package com.danilafe.duality.ecs.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.math.Rectangle;
-import com.danilafe.duality.ecs.components.CollisionBox;
-import com.danilafe.duality.ecs.components.Platform;
-import com.danilafe.duality.ecs.components.Solid;
-import com.danilafe.duality.ecs.components.SurfaceTracker;
+import com.danilafe.duality.ecs.components.physics.CollisionBox;
+import com.danilafe.duality.ecs.components.physics.Platform;
+import com.danilafe.duality.ecs.components.physics.Solid;
+import com.danilafe.duality.ecs.components.physics.SurfaceTracker;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
 
 public class SurfaceSystem extends DualSystem {

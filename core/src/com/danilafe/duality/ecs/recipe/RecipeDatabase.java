@@ -5,8 +5,21 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.danilafe.duality.ResourceManager;
-import com.danilafe.duality.ecs.components.*;
-import com.danilafe.duality.ecs.components.Runnable;
+import com.danilafe.duality.ecs.components.game.Input;
+import com.danilafe.duality.ecs.components.game.LevelPortal;
+import com.danilafe.duality.ecs.components.game.Player;
+import com.danilafe.duality.ecs.components.overlap.OverlapTracker;
+import com.danilafe.duality.ecs.components.overlap.Overlapping;
+import com.danilafe.duality.ecs.components.util.Runnable;
+import com.danilafe.duality.ecs.components.graphics.Animated;
+import com.danilafe.duality.ecs.components.graphics.Camera;
+import com.danilafe.duality.ecs.components.graphics.CameraShake;
+import com.danilafe.duality.ecs.components.graphics.CameraTracker;
+import com.danilafe.duality.ecs.components.particle.Emitter;
+import com.danilafe.duality.ecs.components.particle.Expiring;
+import com.danilafe.duality.ecs.components.physics.*;
+import com.danilafe.duality.ecs.components.positioning.Following;
+import com.danilafe.duality.ecs.components.switching.ActiveGroup;
 
 public class RecipeDatabase {
 

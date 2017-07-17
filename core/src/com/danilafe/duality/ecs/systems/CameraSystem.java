@@ -4,9 +4,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
-import com.danilafe.duality.ecs.components.Camera;
-import com.danilafe.duality.ecs.components.CameraShake;
-import com.danilafe.duality.ecs.components.Position;
+import com.danilafe.duality.ecs.components.graphics.Camera;
+import com.danilafe.duality.ecs.components.graphics.CameraShake;
+import com.danilafe.duality.ecs.components.physics.Position;
 
 public class CameraSystem extends IteratingSystem {
 

@@ -2,7 +2,7 @@ package com.danilafe.duality.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.ecs.components.physics.*;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
 
 public class CollisionSystem extends DualSystem {

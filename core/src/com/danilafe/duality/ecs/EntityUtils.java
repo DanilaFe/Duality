@@ -6,7 +6,15 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.danilafe.duality.ResourceManager;
-import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.ecs.components.graphics.Animated;
+import com.danilafe.duality.ecs.components.overlap.OverlapTracker;
+import com.danilafe.duality.ecs.components.physics.Position;
+import com.danilafe.duality.ecs.components.physics.Pushable;
+import com.danilafe.duality.ecs.components.physics.SurfaceTracker;
+import com.danilafe.duality.ecs.components.positioning.Average;
+import com.danilafe.duality.ecs.components.positioning.Following;
+import com.danilafe.duality.ecs.components.util.Child;
+import com.danilafe.duality.ecs.components.util.Parent;
 
 public class EntityUtils {
 

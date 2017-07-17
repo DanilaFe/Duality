@@ -2,10 +2,8 @@ package com.danilafe.duality.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.danilafe.duality.ecs.EntityUtils;
-import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.ecs.components.physics.*;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
-import javafx.geometry.Pos;
 
 public class PlatformSystem extends DualSystem{
 

@@ -2,9 +2,9 @@ package com.danilafe.duality.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.danilafe.duality.ecs.components.CollisionBox;
-import com.danilafe.duality.ecs.components.OverlapTracker;
-import com.danilafe.duality.ecs.components.Overlapping;
+import com.danilafe.duality.ecs.components.physics.CollisionBox;
+import com.danilafe.duality.ecs.components.overlap.OverlapTracker;
+import com.danilafe.duality.ecs.components.overlap.Overlapping;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
 
 public class OverlapSystem extends DualSystem {

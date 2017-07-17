@@ -4,7 +4,11 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.danilafe.duality.Constants;
-import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.ecs.components.game.Input;
+import com.danilafe.duality.ecs.components.game.Player;
+import com.danilafe.duality.ecs.components.graphics.Animated;
+import com.danilafe.duality.ecs.components.physics.*;
+import com.danilafe.duality.ecs.components.switching.ActiveGroup;
 
 public class PlayerSystem extends IteratingSystem {
 

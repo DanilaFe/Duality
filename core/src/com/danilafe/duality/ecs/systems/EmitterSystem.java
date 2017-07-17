@@ -5,8 +5,8 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.danilafe.duality.ResourceManager;
-import com.danilafe.duality.ecs.components.CollisionBox;
-import com.danilafe.duality.ecs.components.Emitter;
+import com.danilafe.duality.ecs.components.physics.CollisionBox;
+import com.danilafe.duality.ecs.components.particle.Emitter;
 
 public class EmitterSystem extends IteratingSystem {
 

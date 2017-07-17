@@ -3,8 +3,8 @@ package com.danilafe.duality.ecs.recipe;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.danilafe.duality.ResourceManager;
-import com.danilafe.duality.ecs.components.CollisionBox;
-import com.danilafe.duality.ecs.components.Position;
+import com.danilafe.duality.ecs.components.physics.CollisionBox;
+import com.danilafe.duality.ecs.components.physics.Position;
 
 public abstract class Recipe {
 

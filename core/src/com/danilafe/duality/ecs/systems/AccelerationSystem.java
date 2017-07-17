@@ -4,8 +4,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
-import com.danilafe.duality.ecs.components.Acceleration;
-import com.danilafe.duality.ecs.components.Velocity;
+import com.danilafe.duality.ecs.components.physics.Acceleration;
+import com.danilafe.duality.ecs.components.physics.Velocity;
 
 public class AccelerationSystem extends IteratingSystem {
 

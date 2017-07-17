@@ -2,10 +2,10 @@ package com.danilafe.duality.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.danilafe.duality.ecs.components.CollisionBox;
-import com.danilafe.duality.ecs.components.FrictionCause;
-import com.danilafe.duality.ecs.components.FrictionEntity;
-import com.danilafe.duality.ecs.components.Velocity;
+import com.danilafe.duality.ecs.components.physics.CollisionBox;
+import com.danilafe.duality.ecs.components.physics.FrictionCause;
+import com.danilafe.duality.ecs.components.physics.FrictionEntity;
+import com.danilafe.duality.ecs.components.physics.Velocity;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
 
 public class FrictionSystem extends DualSystem {

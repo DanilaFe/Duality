@@ -2,7 +2,11 @@ package com.danilafe.duality.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.ecs.components.game.Input;
+import com.danilafe.duality.ecs.components.game.LevelPortal;
+import com.danilafe.duality.ecs.components.game.Player;
+import com.danilafe.duality.ecs.components.overlap.OverlapTracker;
+import com.danilafe.duality.ecs.components.switching.ActiveGroup;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
 import com.danilafe.duality.level.Level;
 

@@ -9,7 +9,13 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.badlogic.gdx.utils.IntMap;
 import com.danilafe.duality.Constants;
-import com.danilafe.duality.ecs.components.*;
+import com.danilafe.duality.ecs.components.game.Input;
+import com.danilafe.duality.ecs.components.graphics.Camera;
+import com.danilafe.duality.ecs.components.graphics.CameraTracker;
+import com.danilafe.duality.ecs.components.physics.Position;
+import com.danilafe.duality.ecs.components.positioning.Average;
+import com.danilafe.duality.ecs.components.positioning.Following;
+import com.danilafe.duality.ecs.components.switching.ActiveGroup;
 
 public class ActiveGroupSystem extends EntitySystem {
 

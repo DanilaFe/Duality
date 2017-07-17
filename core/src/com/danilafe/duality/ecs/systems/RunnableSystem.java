@@ -3,7 +3,7 @@ package com.danilafe.duality.ecs.systems;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.danilafe.duality.ecs.components.Runnable;
+import com.danilafe.duality.ecs.components.util.Runnable;
 
 public class RunnableSystem extends IteratingSystem {
 
