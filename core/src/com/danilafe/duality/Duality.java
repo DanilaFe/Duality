@@ -30,4 +30,12 @@ public class Duality extends ApplicationAdapter {
 		batch.dispose();
 		img.dispose();
 	}
+
+    private static Duality instance;
+
+    Queue<DualityRunnable> runQueue;
+
+    public static void runAfterStep(DualityRunnable runnable){
+        instance.runQueue.addLast(runnable);
+    }
 }
