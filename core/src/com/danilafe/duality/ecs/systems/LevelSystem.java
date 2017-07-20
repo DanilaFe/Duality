@@ -41,15 +41,7 @@ public class LevelSystem extends DualSystem {
             }
 
             if (canTransition && transitionRequested && portal.levelSupplier != null) {
-                Duality.runAfterStep(new DualityRunnable() {
-                    Level toLoad = portal.levelSupplier.get();
-
-                    @Override
-                    public void run(PooledEngine run, ResourceManager resources, RecipeDatabase recipes, ControlManager controls) {
-                        clearEntities(run);
-                        toLoad.create(run, resources, recipes, controls);
-                    }
-                });
+                Duality.runAfterStep(DualityRunnable.loadLevel(portal.levelSupplier.get()));
                 return;
             }
         }
