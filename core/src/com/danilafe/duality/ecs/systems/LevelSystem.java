@@ -2,18 +2,23 @@ package com.danilafe.duality.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.core.PooledEngine;
+import com.danilafe.duality.Duality;
+import com.danilafe.duality.DualityRunnable;
+import com.danilafe.duality.ResourceManager;
+import com.danilafe.duality.controls.ControlManager;
 import com.danilafe.duality.ecs.components.game.Input;
 import com.danilafe.duality.ecs.components.game.LevelPortal;
 import com.danilafe.duality.ecs.components.game.Player;
 import com.danilafe.duality.ecs.components.overlap.OverlapTracker;
 import com.danilafe.duality.ecs.components.switching.ActiveGroup;
+import com.danilafe.duality.ecs.recipe.RecipeDatabase;
 import com.danilafe.duality.ecs.systems.util.DualSystem;
 import com.danilafe.duality.level.Level;
 
 public class LevelSystem extends DualSystem {
 
     public Level currentLevel;
-    public Level toLoad;
 
     public LevelSystem() {
         super(Family.all(Player.class, ActiveGroup.class, Input.class).get(),
@@ -22,7 +27,6 @@ public class LevelSystem extends DualSystem {
 
     @Override
     public void update(float deltaTime) {
-        toLoad = null;
         for (Entity portalEntity : entitiesB) {
             LevelPortal portal = portalEntity.getComponent(LevelPortal.class);
             OverlapTracker tracker = portalEntity.getComponent(OverlapTracker.class);
@@ -37,7 +41,15 @@ public class LevelSystem extends DualSystem {
             }
 
             if (canTransition && transitionRequested && portal.levelSupplier != null) {
-                toLoad = portal.levelSupplier.get();
+                Duality.runAfterStep(new DualityRunnable() {
+                    Level toLoad = portal.levelSupplier.get();
+
+                    @Override
+                    public void run(PooledEngine run, ResourceManager resources, RecipeDatabase recipes, ControlManager controls) {
+                        clearEntities(run);
+                        toLoad.create(run, resources, recipes, controls);
+                    }
+                });
                 return;
             }
         }
