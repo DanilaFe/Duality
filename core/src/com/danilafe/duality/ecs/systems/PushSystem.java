@@ -29,6 +29,8 @@ public class PushSystem extends DualSystem {
 
             Array<Entity> entitiesPushingLeft = new Array<>();
             Array<Entity> entitiesPushingRight = new Array<>();
+            float leftForce = 0;
+            float rightForce = 0;
             for(Entity pushing : entitiesB){
                 CollisionBox pushingBox = pushing.getComponent(CollisionBox.class);
                 Velocity pushingVelocity = pushing.getComponent(Velocity.class);
@@ -45,25 +47,24 @@ public class PushSystem extends DualSystem {
                 if(pushingBottom >= futureTop || pushingTop <= futureBottom || pushingLeft > futureRight ||
                         pushingRight < futureLeft) continue;
 
+                pushingVelocity.velocity.x *= .75f;
                 if(pushingVelocity.velocity.x < 0 && pushingLeft <= futureRight) {
                     entitiesPushingLeft.add(pushing);
-                    pushableVelocity.velocity.x += pushingVelocity.velocity.x;
+                    leftForce = Math.min(leftForce, pushingVelocity.velocity.x);
                 } else if(pushingVelocity.velocity.x > 0 && pushingRight >= futureLeft){
                     entitiesPushingRight.add(pushing);
-                    pushableVelocity.velocity.x += pushingVelocity.velocity.x;
+                    rightForce = Math.max(rightForce, pushingVelocity.velocity.x);
                 }
             }
 
             pushableComponent.entities.clear();
-            pushableVelocity.velocity.x *= Constants.PUSH_DECREASE;
+            pushableVelocity.velocity.x = rightForce + leftForce;
             for(Entity entity : entitiesPushingLeft){
-                entity.getComponent(Velocity.class).velocity.x = pushableVelocity.velocity.x;
                 entity.getComponent(Position.class).position.x =
                         pushableBox.box.x + pushableBox.box.width + entity.getComponent(CollisionBox.class).box.width / 2;
                 pushableComponent.entities.put(entity, -1.f);
             }
             for(Entity entity : entitiesPushingRight){
-                entity.getComponent(Velocity.class).velocity.x = pushableVelocity.velocity.x;
                 entity.getComponent(Position.class).position.x =
                         pushableBox.box.x - entity.getComponent(CollisionBox.class).box.width/ 2;
                 pushableComponent.entities.put(entity, 1.f);
