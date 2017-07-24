@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.danilafe.duality.animation.AnimationData;
 import com.danilafe.duality.serialized.Resources;
+import com.danilafe.duality.serialized.Tiles;
 
 public class ResourceManager {
 
@@ -15,13 +16,16 @@ public class ResourceManager {
     private ObjectMap<String, AnimationData> animations;
     private ObjectMap<String, String> textures;
     private ObjectMap<String, ShaderProgram> shaders;
+    private ObjectMap<String, Tiles.Tile> tiles;
 
     public ResourceManager() {
         Resources resources = new Json().fromJson(Resources.class, Gdx.files.internal("resources.json"));
+        Tiles tiles = new Json().fromJson(Tiles.class, Gdx.files.internal("tiles.json"));
         loadAssets(resources);
         loadShaders(resources);
         loadTextures(resources);
         loadAnimations(resources);
+        loadTiles(tiles);
     }
 
     private void loadAssets(Resources sources) {
@@ -65,6 +69,13 @@ public class ResourceManager {
         }
     }
 
+    private void loadTiles(Tiles tilesData){
+        tiles = new ObjectMap<>();
+        for(String key : tilesData.tileDefinitions.keys()){
+            tiles.put(key, tilesData.tileDefinitions.get(key));
+        }
+    }
+
     public AnimationData getAnimation(String name) {
         return animations.get(name);
     }
@@ -75,6 +86,10 @@ public class ResourceManager {
 
     public ShaderProgram getShader(String name) {
         return shaders.get(name);
+    }
+
+    public Tiles.Tile getTile(String name){
+        return tiles.get(name);
     }
 
 }

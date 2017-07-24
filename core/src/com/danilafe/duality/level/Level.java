@@ -20,6 +20,7 @@ import com.danilafe.duality.ecs.components.switching.ActiveGroup;
 import com.danilafe.duality.ecs.recipe.RecipeDatabase;
 import com.danilafe.duality.ecs.systems.ActiveGroupSystem;
 import com.danilafe.duality.serialized.LevelData;
+import com.danilafe.duality.serialized.Tiles;
 
 public class Level {
 
@@ -53,9 +54,9 @@ public class Level {
             if (coord.coords[1] > maxY) maxY = coord.coords[1];
         }
 
-        LevelData.Tile[][] generated = new LevelData.Tile[maxX + 1][maxY + 1];
+        Tiles.Tile[][] generated = new Tiles.Tile[maxX + 1][maxY + 1];
         for (LevelData.Coordinate coord : chunk.tiles) {
-            generated[coord.coords[0]][coord.coords[1]] = levelData.tileDefinitions.get(coord.tile);
+            generated[coord.coords[0]][coord.coords[1]] = resources.getTile(coord.tile);
         }
 
         for (int x = 0; x <= maxX; x++) {

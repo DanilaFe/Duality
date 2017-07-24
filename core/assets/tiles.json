@@ -1,0 +1,11 @@
+{
+  "tileDefinitions": {
+    "wall": {
+      "entityName": "wall",
+      "bottomFrame": "bottom",
+      "bottomCornerFrame": "bottomCorner",
+      "topFrame": "top",
+      "topCornerFrame": "topCorner"
+    }
+  }
+}

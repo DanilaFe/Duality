@@ -9,17 +9,6 @@ public class LevelData {
         public int[] coords = new int[2];
     }
 
-    public static class Tile {
-        public String entityName = "wall";
-
-        public String defaultFrame = "default";
-        public String wallFrame = "default";
-        public String topCornerFrame = "default";
-        public String topFrame = "default";
-        public String bottomCornerFrame = "default";
-        public String bottomFrame = "default";
-    }
-
     public static class Coordinate extends Positioned {
         public String tile = "wall";
     }
@@ -57,7 +46,6 @@ public class LevelData {
         public boolean active = false;
     }
 
-    public ObjectMap<String, Tile> tileDefinitions = new ObjectMap<>();
     public ObjectMap<String, SwitchGroup> groups = new ObjectMap<>();
     public Chunk[] chunks = new Chunk[0];
 
